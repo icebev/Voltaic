@@ -1,0 +1,112 @@
+/* body used to color the background and set the font. */
+body {
+    background: rgb(83, 101, 107);
+    font-family: "Lucida Console", "Courier New", monospace;
+    text-align: center;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* styling of the game title */ 
+#gameTitle {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: rgb(6, 190, 252);
+    font-size: 50px;
+    text-shadow: 5px 5px 5px rgb(38, 53, 58), 0px -5px 5px rgb(6, 190, 252);
+}
+
+/* styling for containers that should look similar */
+.container {
+    position: absolute;
+    background: rgb(255, 255, 255, 0.4);
+    padding: 20px;
+    width: 80vw;
+    border-radius: 10px;
+    border-style: ridge;
+}
+
+    /* adjusting specific containers */
+    #nameEntryContainer {
+        text-align: center;
+        visibility: visible;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        width: 80vw;
+    }
+
+    #mainContainer {
+        bottom: 6vh;
+        visibility: hidden;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, 0%);
+    }
+
+/* grid of buttons for the dialogue options */
+#dialogueChoices {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 10px;
+    margin-top: 20px;
+    max-height: 10%;
+}
+
+/* appearance of the text entry field */
+input[type=text] {
+    height: 10vh;
+    width: 80vw;
+    padding: 12px 20px;
+    margin: 20px 0;
+    box-sizing: border-box;
+    border: 2px solid rgb(38, 53, 58);
+    border-radius: 4px;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 30px;
+    text-align: center;
+}
+
+/* unique styling for the start game button */
+#startButton {
+    height: 10vh;
+    width: 80vw;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 30px;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, rgb(6, 190, 252), white)
+}
+
+/* dialogue option button style */
+.optionButton {
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 20px;
+    position: relative;
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+    .optionButton:hover {
+        border: 3px solid black;
+        background-color: white;
+        padding: 4px 9px;
+    }
+
+/* styling and centering for the main 2D canvas */
+#mainCanvas {
+    visibility: visible;
+    border-radius: 5px;
+    width: 95vw;
+    height: 95vh;
+    border: 5px solid red;
+    background: #8f9194;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
