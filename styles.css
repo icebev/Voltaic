@@ -37,28 +37,45 @@ body {
         width: 80vw;
     }
 
-    #mainContainer {
+    #dialogueChoicesContainer {
         bottom: 6vh;
+        height: 15vh;
         visibility: hidden;
         left: 50%;
         margin-right: -50%;
         transform: translate(-50%, 0%);
     }
 
+/* adventure text container */ 
+#adventureTextContainer {
+    visibility: hidden;
+    position: absolute;
+    height: 12vh;
+    bottom: 30vh;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 0%);
+}
+
+#adventureText {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
 /* grid of buttons for the dialogue options */
 #dialogueChoices {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: repeat(2, 50%);
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 10px;
     max-height: 10%;
 }
 
 /* appearance of the text entry field */
 input[type=text] {
     height: 10vh;
-    width: 80vw;
+    width: 30vw;
     padding: 12px 20px;
     margin: 20px 0;
     box-sizing: border-box;
@@ -72,7 +89,7 @@ input[type=text] {
 /* unique styling for the start game button */
 #startButton {
     height: 10vh;
-    width: 80vw;
+    width: 20vw;
     font-family: "Lucida Console", "Courier New", monospace;
     font-size: 30px;
     border-radius: 5px;
@@ -80,7 +97,7 @@ input[type=text] {
 }
 
 /* dialogue option button style */
-.optionButton {
+.choiceButton {
     font-family: "Lucida Console", "Courier New", monospace;
     font-size: 20px;
     position: relative;
@@ -89,7 +106,27 @@ input[type=text] {
     border-radius: 10px;
     padding: 5px 10px;
 }
-    .optionButton:hover {
+    .choiceButton:hover {
+        border: 3px solid black;
+        background-color: white;
+        padding: 4px 9px;
+    }
+
+.centralButton {
+    visibility: hidden;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 20px;
+    position: absolute;
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+    .centralButton:hover {
         border: 3px solid black;
         background-color: white;
         padding: 4px 9px;
@@ -99,8 +136,8 @@ input[type=text] {
 #mainCanvas {
     visibility: visible;
     border-radius: 5px;
-    width: 95vw;
-    height: 95vh;
+    width: 1600px;
+    height: 900px;
     border: 5px solid red;
     background: #8f9194;
     position: absolute;
