@@ -12,29 +12,31 @@ body {
 #gameTitle {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     color: rgb(6, 190, 252);
-    font-size: 50px;
+    font-size: 75px;
     text-shadow: 5px 5px 5px rgb(38, 53, 58), 0px -5px 5px rgb(6, 190, 252);
 }
 
 /* styling for containers that should look similar */
 .container {
     position: absolute;
-    background: rgb(255, 255, 255, 0.4);
+    background: rgba(127, 157, 219, 0.329);
     padding: 20px;
-    width: 80vw;
-    border-radius: 10px;
+    width: 70vw;
+    border-radius: 5px;
     border-style: ridge;
+    box-shadow: 5px 5px #62b4eb;
 }
 
     /* adjusting specific containers */
     #nameEntryContainer {
         text-align: center;
         visibility: visible;
+        font-size: 20px;
         top: 50%;
         left: 50%;
         margin-right: -50%;
         transform: translate(-50%, -50%);
-        width: 80vw;
+        width: 40vw;
     }
 
     #dialogueChoicesContainer {
@@ -51,6 +53,7 @@ body {
     visibility: hidden;
     position: absolute;
     height: 12vh;
+    width: 35vw;
     bottom: 30vh;
     left: 50%;
     margin-right: -50%;
@@ -99,6 +102,7 @@ input[type=text] {
 /* dialogue option button style */
 .choiceButton {
     font-family: "Lucida Console", "Courier New", monospace;
+    height: 50px;
     font-size: 20px;
     position: relative;
     background-color: transparent;
@@ -116,6 +120,8 @@ input[type=text] {
     visibility: hidden;
     font-family: "Lucida Console", "Courier New", monospace;
     font-size: 20px;
+    height: 50px;
+    width: 200px;
     position: absolute;
     background-color: transparent;
     border: 2px solid black;
