@@ -7,10 +7,28 @@
     <link href="styles.css" rel="stylesheet" />
 </head>
 <body>
-    <script src="adventureText.js"></script>
-    <!-- canvas before other interactable elements to not block them-->
-    <canvas id="mainCanvas"></canvas>
+    <!-- background canvas before other interactable elements to not block them-->
+    <canvas id="backCanvas"></canvas>
 
+    
+
+   
+    <!-- div that contains the adventure text-->
+    <div class="container" id="batteryBox"></div>
+    <div class="container" id="adventureTextContainer"></div>
+    <div class="container namePlate" id="namePlateLeft"></div>
+    <div class="container namePlate" id="namePlateRight"></div>
+    <!-- div that contains the choice option buttons -->
+    <div class="container"  id="dialogueChoicesContainer">
+        <button id="continueButton" class="genericButton centralButton">Continue</button>
+        <button id="skipButton" class="genericButton centralButton" onclick="ChangeTextSpeed('superfast')">Skip</button>
+        <div id="dialogueChoices">
+        </div>
+    </div>
+    
+    <canvas id="vfxCanvas"></canvas>
+    <canvas id="frontCanvas"></canvas>
+    
     <!-- first div is for the title and entry of the player name -->
     <div class="container" id="nameEntryContainer">
         <h1 id="gameTitle">VOLTAIC</h1>
@@ -20,19 +38,8 @@
         <p id="nameWarning"></p>
     </div>
 
-    <div class="container namePlate" id="namePlateLeft"></div>
-    <div class="container namePlate" id="namePlateRight"></div>
-    <!-- div that contains the adventure text-->
-    <div class="container" id="adventureTextContainer">
-    </div>
 
-    <!-- div that contains the choice option buttons -->
-    <div class="container"  id="dialogueChoicesContainer">
-        <button id="continueButton" class="genericButton centralButton">Continue</button>
-        <button id="skipButton" class="genericButton centralButton" onclick="ChangeTextSpeed('superfast')">Skip</button>
-        <div id="dialogueChoices">
-        </div>
-    </div>
-    <script src="game.js"></script>
+    <script src="dialogueSystem.js"></script>
+    <script src="canvasAnimation.js"></script>
 </body>
 </html>
