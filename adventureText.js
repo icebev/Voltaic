@@ -8,6 +8,7 @@ function UpdateTextNodes () {
         {
             nodeId: 2,
             text: 'You find yourself in a scrapyard surrounded by junk. There is an old battery nearby.',
+            speaker: "player",
             dialogueChoices: [
                 {
                     text: 'Take the battery',
@@ -54,11 +55,14 @@ function UpdateTextNodes () {
         },
         {
             nodeId: 5,
+            speaker: "none",
             text: 'You stop but the battery is ruined.',
         },
         {
             nodeId: 6,
             text: 'You find a robot dog who needs a new battery.',
+            textSpeed: 'slow',
+            speaker: "narrator",
             dialogueChoices: [
                 {
                     text: 'Use your battery',

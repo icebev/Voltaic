@@ -1,16 +1,27 @@
 ﻿// declare global variables
 var adventureTextNodes = [];
 var _playerName = '';
-var currentTextNode = 0;
+var currentTextNode = {};
+
 var energyLevel = 50;
 var maxEnergyLevel = 100;
 var inventory = [];
 var lastTime = 0;
+
+var timeSinceLastCharacter = 0;
+var characterSpans = [];
+var characterRevealDelay = 80;
+
 var gameStarted = false;
 var transistionOpacity = 1;
-const adventureTextElement = document.getElementById("adventureText");
+
+const adventureTextContainerElement = document.getElementById("adventureTextContainer");
 const dialogueChoicesElement = document.getElementById("dialogueChoices");
 const continueButtonElement = document.getElementById("continueButton");
+const skipButtonElement = document.getElementById("skipButton");
+const namePlateLeftElement = document.getElementById("namePlateLeft");
+const namePlateRightElement = document.getElementById("namePlateRight");
+
 
 // function that checks the player name entered
 function NameEntrySubmit() {
@@ -22,10 +33,11 @@ function NameEntrySubmit() {
     } else if (enteredName) {
         // if the name is fine, get ready to start the game
         _playerName = enteredName;
+        namePlateLeftElement.innerHTML = _playerName;
         UpdateTextNodes();
         document.getElementById("nameEntryContainer").style.visibility = "Hidden";
         document.getElementById("dialogueChoicesContainer").style.visibility = "Visible";
-        document.getElementById("adventureTextContainer").style.visibility = "Visible";
+        adventureTextContainerElement.style.visibility = "Visible";
         gameStarted = true;
         StartGame();
     } else {
@@ -41,37 +53,30 @@ function StartGame() {
     transistionOpacity = 1.5;
 };
 
-// function that will display the adventure text by changing the HTML element
-function ChangeAdventureText(inputString) {
-    adventureTextElement.innerHTML = inputString;
-};
-
-// function that takes in the target node ID to change what is displayed
+// function that takes in the target node ID to change what is being displayed
 function UpdateText(targetNodeId) {
     
     // find the specified text node using the target node ID
     let targetTextNode = adventureTextNodes.find(textNode => textNode.nodeId === targetNodeId);
 
     // update the main adventure text
+    ChangeTextSpeed(targetTextNode.textSpeed);
     ChangeAdventureText(targetTextNode.text);
+    UpdateNamePlates(targetTextNode.speaker);
 
     // clear any previous dialogue choices by removing the dialogue option buttons entirely
     while (dialogueChoicesElement.firstChild) {
         dialogueChoicesElement.removeChild(dialogueChoicesElement.firstChild);
     };
-
-    // if there are no dialogue choices to display, display the continue button instead
-    if (!targetTextNode.dialogueChoices) {
-        continueButtonElement.style.visibility = "Visible";
-        continueButtonElement.onclick = function() {SelectContinue(targetTextNode)};  
         
-    // otherwise create new button elements that respond to being clicked
-    } else if (targetTextNode.dialogueChoices) {
+    // create new button elements that respond to being clicked
+    if (targetTextNode.dialogueChoices) {
         targetTextNode.dialogueChoices.forEach(dialogueChoice => {
             // before displaying the choice check whether the requirements are met
             if (CheckChoiceRequirements(dialogueChoice, targetNodeId)) {
                 let newButton = document.createElement("button");
                 newButton.innerText = dialogueChoice.text;
+                newButton.classList.add("genericButton");
                 newButton.classList.add("choiceButton");
                 newButton.onclick = function() {SelectChoice(dialogueChoice)};
                 dialogueChoicesElement.appendChild(newButton);
@@ -80,8 +85,94 @@ function UpdateText(targetNodeId) {
     };
 
     // if successful the current text node becomes the original target
-    currentTextNode = targetNodeId;
-    console.log("Text node retrieved: " + currentTextNode);
+    currentTextNode = targetTextNode;
+    console.log("Text node retrieved: " + currentTextNode.nodeId);
+};
+
+// function to display the correct buttons once all adventure text is revealed
+function DisplayChoiceButtons(textNode) {
+    // if there are no dialogue choices to display, display the continue button instead
+    if (!currentTextNode.dialogueChoices) {
+        continueButtonElement.style.visibility = "Visible";
+        continueButtonElement.onclick = function() {SelectContinue(textNode)};
+    } else {
+        dialogueChoicesElement.style.visibility = "Visible";
+    }; 
+};
+
+// function that will display the adventure text with a typewriter effect by first creating invisible span elements for each letter
+function ChangeAdventureText(inputString) {
+    // remove any old text first
+    while (adventureTextContainerElement.firstChild) {
+        adventureTextContainerElement.removeChild(adventureTextContainerElement.firstChild);
+    };
+
+    // show the skip button when the text is changed and hide any dialogue choices
+    skipButtonElement.style.visibility = "Visible";
+    dialogueChoicesElement.style.visibility = "Hidden";
+
+    // set the array of span elements back to empty before adding the new hidden ones
+    characterSpans = [];
+    inputString.split("").forEach((character) => {
+        let newSpan = document.createElement("span");
+        newSpan.innerHTML = character;
+        newSpan.classList.add("hidden");
+        adventureTextContainerElement.appendChild(newSpan);
+        characterSpans.push({
+           span: newSpan,
+        });
+    });
+};
+ 
+// called before new text is displayed and changes the character delay value in ms
+function ChangeTextSpeed(speed) {
+    switch (speed) {
+        case "slow":
+            characterRevealDelay = 100;
+            break;
+        case "fast":
+            characterRevealDelay = 50;
+            break;
+        case "superfast":
+            characterRevealDelay = 10;
+            break;    
+        default:
+            characterRevealDelay = 80;
+            break;
+    };
+};
+
+function UpdateNamePlates(speaker) {
+    switch (speaker) {
+        case "player":
+            namePlateLeftElement.style.visibility = "Visible";
+            namePlateRightElement.style.visibility = "Hidden";
+            break;
+        default:
+            if (speaker) {
+                namePlateRightElement.innerHTML = speaker
+                namePlateLeftElement.style.visibility = "Hidden";
+                namePlateRightElement.style.visibility = "Visible";
+            } else {
+                namePlateLeftElement.style.visibility = "Hidden";
+                namePlateRightElement.style.visibility = "Hidden";
+            };
+    }
+}
+
+// function that adds the 'revealed' class to each of the span elements over time to make them visible
+function RevealSpanCharacters(revealList, deltatime) {
+    timeSinceLastCharacter += deltatime;
+    if (timeSinceLastCharacter > characterRevealDelay && revealList.length > 0) {
+        var spanToReveal = revealList.splice(0, 1)[0];
+        spanToReveal.span.classList.remove('hidden');
+        spanToReveal.span.classList.add('revealed');
+        timeSinceLastCharacter = 0 + (timeSinceLastCharacter % 100);
+    // hide the skip button if all the text is visible   
+    } else if (revealList.length === 0 && currentTextNode.nodeId) {
+        skipButtonElement.style.visibility = "Hidden";
+        DisplayChoiceButtons(currentTextNode);
+    };
 };
 
 // the continue button skips to the desired node if applicable 
@@ -90,7 +181,7 @@ function SelectContinue(currentNode) {
     if (currentNode.skipToNode) {
         UpdateText(currentNode.skipToNode);
     } else {
-        UpdateText(currentTextNode + 1);
+        UpdateText(currentNode.nodeId + 1);
         console.log("No skipToNode specified.")
     };
 };
@@ -314,7 +405,7 @@ function Animate(timestamp) {
     lastTime = timestamp;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     junkyard.update(deltatime);
-    // junkyard.draw();
+    junkyard.draw();
     batteryborn.update(deltatime);
     batteryborn.draw();
     DrawEnergyBar();
@@ -322,6 +413,7 @@ function Animate(timestamp) {
         transistionOpacity = 1.5;
     }    
     CanvasTransitionUpdate(deltatime);
+    RevealSpanCharacters(characterSpans, deltatime);
     requestAnimationFrame(Animate);
 };
 

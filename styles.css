@@ -19,7 +19,7 @@ body {
 /* styling for containers that should look similar */
 .container {
     position: absolute;
-    background: rgba(127, 157, 219, 0.329);
+    background: rgba(127, 157, 219, 0.6);
     padding: 20px;
     width: 70vw;
     border-radius: 5px;
@@ -27,34 +27,49 @@ body {
     box-shadow: 5px 5px #62b4eb;
 }
 
-    /* adjusting specific containers */
-    #nameEntryContainer {
-        text-align: center;
-        visibility: visible;
-        font-size: 20px;
-        top: 50%;
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, -50%);
-        width: 40vw;
-    }
+/* adjusting specific containers */
+#nameEntryContainer {
+    text-align: center;
+    visibility: visible;
+    font-size: 20px;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    width: 40vw;
+}
 
-    #dialogueChoicesContainer {
-        bottom: 6vh;
-        height: 15vh;
-        visibility: hidden;
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, 0%);
-    }
+#dialogueChoicesContainer {
+    bottom: 8vh;
+    height: 18vh;
+    visibility: hidden;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 0%);
+}
+
+.namePlate {
+    visibility: hidden;
+    bottom: 51vh;
+    width: 8vw;
+    box-shadow: none;
+}
+
+#namePlateLeft {
+    left: 30vw;
+}
+
+#namePlateRight {
+    right: 30vw;
+}
 
 /* adventure text container */ 
 #adventureTextContainer {
     visibility: hidden;
     position: absolute;
     height: 12vh;
-    width: 35vw;
-    bottom: 30vh;
+    width: 40vw;
+    bottom: 35vh;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, 0%);
@@ -65,8 +80,21 @@ body {
     padding-right: 50px;
 }
 
+span {
+    font-size: 30px;
+}
+
+span.hidden {
+    opacity: 0;
+}
+
+span.revealed {
+    opacity: 1;
+}
+
 /* grid of buttons for the dialogue options */
 #dialogueChoices {
+    visibility: hidden;
     position: relative;
     display: grid;
     grid-template-columns: repeat(2, 50%);
@@ -99,44 +127,36 @@ input[type=text] {
     background: linear-gradient(to bottom, rgb(6, 190, 252), white)
 }
 
-/* dialogue option button style */
-.choiceButton {
+.genericButton {
     font-family: "Lucida Console", "Courier New", monospace;
-    height: 50px;
     font-size: 20px;
-    position: relative;
-    background-color: transparent;
+    height: 50px;
     border: 2px solid black;
     border-radius: 10px;
     padding: 5px 10px;
+    background-color: transparent;
 }
-    .choiceButton:hover {
-        border: 3px solid black;
-        background-color: white;
-        padding: 4px 9px;
-    }
+
+.genericButton:hover {
+    border: 3px solid black;
+    background-color: white;
+    padding: 4px 9px;
+}
+
+/* dialogue option button styles */
+.choiceButton {
+    visibility: inherit;
+    position: relative;
+}
 
 .centralButton {
     visibility: hidden;
-    font-family: "Lucida Console", "Courier New", monospace;
-    font-size: 20px;
-    height: 50px;
+    position: absolute;
     width: 200px;
-    position: absolute;
-    background-color: transparent;
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 5px 10px;
-    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-    .centralButton:hover {
-        border: 3px solid black;
-        background-color: white;
-        padding: 4px 9px;
-    }
 
 /* styling and centering for the main 2D canvas */
 #mainCanvas {

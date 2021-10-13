@@ -20,14 +20,16 @@
         <p id="nameWarning"></p>
     </div>
 
+    <div class="container namePlate" id="namePlateLeft"></div>
+    <div class="container namePlate" id="namePlateRight"></div>
     <!-- div that contains the adventure text-->
     <div class="container" id="adventureTextContainer">
-        <h2 id="adventureText">Hello. You have awoken at last.</h2>
     </div>
 
     <!-- div that contains the choice option buttons -->
     <div class="container"  id="dialogueChoicesContainer">
-        <button id="continueButton" class="centralButton">Continue</button>
+        <button id="continueButton" class="genericButton centralButton">Continue</button>
+        <button id="skipButton" class="genericButton centralButton" onclick="ChangeTextSpeed('superfast')">Skip</button>
         <div id="dialogueChoices">
         </div>
     </div>
