@@ -1,66 +1,13 @@
 ﻿//// DIALOGUE SYSTEM CODE FOR VOLTAIC ////
 
-// retrieve the adventure text from the JSON file using AJAX
-var adventureTextNodes = [];
-const xmlhttp = new XMLHttpRequest();
-xmlhttp.onload = function() {
-  adventureTextNodes = JSON.parse(this.responseText);
-  };
-xmlhttp.open("GET", "adventureText.json", true);
-xmlhttp.send();
-
-// declare key global variables for use throughout the code
-var _playerName = '';
-var currentTextNode = {};
-var gameStarted = false;
-
-// variables for adaptive energy level and inventory system
-var energyLevel = 50;
-var maxEnergyLevel = 100;
-var inventory = [];
-
-// variables to keep track of animations and typewriter effect
-var lastFrameTime = 0;
-var timeSinceLastCharacter = 0;
-var characterSpans = [];
-var characterRevealDelay = 80;
-var transitionOpacity = 1;
-
-// constant variables used for referring to changing HTML elements
-const adventureTextContainerElement = document.getElementById("adventureTextContainer");
-const dialogueChoicesElement = document.getElementById("dialogueChoices");
-const namePlateLeftElement = document.getElementById("namePlateLeft");
-const namePlateRightElement = document.getElementById("namePlateRight");
-const continueButtonElement = document.getElementById("continueButton");
-const skipButtonElement = document.getElementById("skipButton");
-
-// function that checks the player name entered
-function NameEntrySubmit() {
-    let nameWarningElement = document.getElementById("nameWarning");
-    let enteredName = document.getElementById("nameInput").value;
-    if (enteredName.length > 8) {
-        nameWarningElement.innerHTML = "Enter a shorter name.";
-    } else if (enteredName) {
-        // if the name is acceptable store it and start the game
-        _playerName = enteredName;
-        namePlateLeftElement.innerHTML = _playerName;
-        // switch the visible elements
-        document.getElementById("nameEntryContainer").style.visibility = "Hidden";
-        document.getElementById("dialogueChoicesContainer").style.visibility = "Visible";
-        adventureTextContainerElement.style.visibility = "Visible";
-        gameStarted = true;
-        StartGame();
-    } else {
-        nameWarningElement.innerHTML = "Enter a name.";
-    };
-};
-
 // function called when the game should begin or restart
 function StartGame() {
-    UpdateGameText(1);
     energyLevel = 50;
     inventory = [];
     transitionOpacity = 1.5;
+    StartTracks("A");
+    tracksPlaying[0].switchToTrack();
+    UpdateGameText(1);
 };
 
 // large function that takes in the target node ID to change what is being displayed
@@ -75,7 +22,14 @@ function UpdateGameText(targetNodeId) {
         console.log("Failed to retrieve a node with ID: " + targetNodeId);
         return false;
     };    
-    // update the main adventure text, reveal speed, character nameplates and dialogue option buttons passing properties of the retrieved node
+    // update the soundtracks playing, main adventure text, reveal speed, character nameplates and dialogue option buttons passing properties of the retrieved node
+    if (currentTextNode.changeTrackSet) {
+        StartTracks(currentTextNode.changeTrackSet);
+        console.log(tracksPlaying);
+    };  
+    if (currentTextNode.changeTrack) {
+        ChangeTrack(currentTextNode.changeTrack);
+    };  
     ChangeTextSpeed(currentTextNode.textSpeed);
     ChangeAdventureText(currentTextNode.text);
     UpdateNamePlates(currentTextNode.speaker);
@@ -192,32 +146,6 @@ function CheckChoiceRequirements(dialogueChoice) {
     return true;       
 }; 
 
-// the continue button skips to the desired node if applicable 
-function SelectContinue(currentNode) {
-    continueButtonElement.style.visibility = "Hidden";
-    if (currentNode.skipToNode) {
-        UpdateGameText(currentNode.skipToNode);
-    } else {
-        UpdateGameText(currentNode.nodeId + 1);
-        console.log("No skipToNode specified.")
-    };
-};
-
-// function to execute whenever a dialogue choice is selected taking that dialogue choice object as a parameter
-function SelectChoice(dialogueChoiceSelected) {
-    // alter the inventory and update energy level based on the choice
-    UpdateInventory(dialogueChoiceSelected);
-    UpdateEnergy(dialogueChoiceSelected);
-    // retrieve the next target node from the dialogue choice object
-    let nextTargetNodeId = dialogueChoiceSelected.nextText;
-    // restart the game if a value of 0 is received, otherwise continue to the target node
-    if (nextTargetNodeId === 0) {
-        return StartGame();
-    } else {
-        UpdateGameText(nextTargetNodeId);
-    };
-};
-
 // function to update the inventory array whenever a dialogue choice is selected
 function UpdateInventory(dialogueChoice) {
     if (dialogueChoice.inventoryAdd) {
@@ -253,7 +181,7 @@ function UpdateEnergy(dialogueChoice) {
         if (energyLevel > maxEnergyLevel) {
             console.log(`Maximum energy level was exceeded by ${energyLevel - maxEnergyLevel}!`)
             energyLevel = 100;
-        }
+        };
     };
 };
 

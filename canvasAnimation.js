@@ -1,3 +1,5 @@
+//// CANVAS ANIMATION CODE FOR VOLTAIC ////
+
 const canvas = {
     width: 1600,
     height: 900
@@ -194,7 +196,7 @@ backgroundManager = {
 backgrounds = new Image("BackgroundSheet.png")
 backCtx.drawImage(backgrounds, this.spriteWidth * this.frameX, 0, this.spriteWidth, this.spriteHeight, 0, 0, canvas.width, canvas.height);
 batteryborn = new Character(5, 150, "img/batteryborn.png", 180, 180, 3, 2);
-junkyard = new Animatedback("img/junkyard.png", 1920, 1080, 2);
+//junkyard = new Animatedback("img/junkyard.png", 1920, 1080, 2);
 // animation loop
 function Animate(timestamp) {
     let deltatime = timestamp - lastFrameTime;
@@ -202,8 +204,8 @@ function Animate(timestamp) {
     backCtx.clearRect(0, 0, canvas.width, canvas.height);
     frontCtx.clearRect(0, 0, canvas.width, canvas.height);
     vfxCtx.clearRect(0, 0, canvas.width, vfxCanvas.height);
-    junkyard.update(deltatime);
-    junkyard.draw();
+    //junkyard.update(deltatime);
+    //junkyard.draw();
     backgroundManager.draw();
     batteryborn.update(deltatime);
     batteryborn.draw();
@@ -217,5 +219,5 @@ function Animate(timestamp) {
 };
 
 
-// begin the game animation loop
+// begin the game animation loop once the widow has fully loaded
 window.onload = Animate(0);

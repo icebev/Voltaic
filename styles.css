@@ -42,7 +42,7 @@ body {
 #nameEntryContainer {
     text-align: center;
     visibility: visible;
-    font-size: 20px;
+    font-size: 30px;
     top: 50%;
     left: 50%;
     margin-right: -50%;
@@ -187,10 +187,6 @@ canvas {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);   
-}
-
-#backCanvas {
-    filter: blur(0.5px);
 }
 
 #frontCanvas {

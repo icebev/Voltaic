@@ -15,7 +15,7 @@
             },
             {
                 "text": "Leave the battery",
-                "nexttext": 6
+                "nextText": 6
             },
             {
                 "text": "Stamp on the battery.",
@@ -54,11 +54,14 @@
     {
         "nodeId": 5,
         "speaker": "none",
+        "changeTrack": "Cd",
         "text": "You stop but the battery is ruined."
     },
     {
         "nodeId": 6,
         "text": "You find a robot dog who needs a new battery.",
+        "changeTrackSet": "B",
+        "changeTrack": "Ba",
         "textSpeed": "slow",
         "speaker": "narrator",
         "dialogueChoices": [
@@ -85,11 +88,13 @@
     },
     {
         "nodeId": 16,
+        "changeTrack": "Ab",
         "text": "Keep going...!"
     },
     {
         "nodeId": 17,
         "text": "Are you still stamping?!",
+        "changeTrack": "Ac",
         "dialogueChoices": [
             {
                 "text": "Uhh yeah",
@@ -105,6 +110,7 @@
     },
     {
         "nodeId": 18,
+        "changeTrack": "Ad",
         "text": "The battery explodes and you die."
     },
     {
