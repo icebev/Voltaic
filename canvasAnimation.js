@@ -1,25 +1,33 @@
 //// CANVAS ANIMATION CODE FOR VOLTAIC ////
 
-const canvas = {
+// 16:9 aspect ratio for the canvase to fit most modern monitors
+const canvasDimensions = {
     width: 1600,
     height: 900
-};
+  };
 
-// referencing thecanvas elements using the HTML ID
+// referencing the canvas elements using the HTML ID
+/* 
+backCanvas: For rendering the background image and chatacter sprites.
+frontCanvas: On top of most HTML elements for the fade from black transition effect.
+vfxCanvas: For rendering the energy bar and energy transfer VFX, does not cover the dialogue choice buttons.
+*/ 
 const backCanvas = document.getElementById("backCanvas");
 const frontCanvas = document.getElementById("frontCanvas");
 const vfxCanvas = document.getElementById("vfxCanvas");
-// setting up the 2D canvas
+
+// setting up the each 2D canvas context
 const backCtx = backCanvas.getContext('2d');
 const frontCtx = frontCanvas.getContext('2d');
 const vfxCtx = vfxCanvas.getContext('2d');
-// 16:9 aspect ratio to fit most modern monitors
-backCanvas.width = canvas.width;
-backCanvas.height = canvas.height;
-frontCanvas.width = canvas.width;
-frontCanvas.height = canvas.height;
-vfxCanvas.width = canvas.width;
-vfxCanvas.height = canvas.height * 0.7;
+
+// define canvas dimensions
+backCanvas.width = canvasDimensions.width;
+backCanvas.height = canvasDimensions.height;
+frontCanvas.width = canvasDimensions.width;
+frontCanvas.height = canvasDimensions.height;
+vfxCanvas.width = canvasDimensions.width;
+vfxCanvas.height = canvasDimensions.height;
 
 // function called as part of the animation loop that adds the 'revealed' class to each of the adventure text span elements over time to make them visible
 function RevealSpanCharacters(revealList, deltatime) {
@@ -30,8 +38,9 @@ function RevealSpanCharacters(revealList, deltatime) {
         spanToReveal.span.classList.add('revealed');
         timeSinceLastCharacter = 0 + (timeSinceLastCharacter % 100);
     // hide the skip button and display choice buttons if all the text is visible   
-    } else if (revealList.length === 0 && currentTextNode.nodeId) {
+    } else if (!revealList.length && !allCharactersRevealed) {
         skipButtonElement.style.visibility = "Hidden";
+        allCharactersRevealed = true;
         DisplayChoiceButtons(currentTextNode);
     };
 };
@@ -61,15 +70,15 @@ function DrawEnergyBar() {
     // alter player sprite mood and battery fill color based on the energy level
     switch (true) {
         case energyLevel <= 20:
-            changePlayerMood('sad');
+            ChangePlayerMood('sad');
             vfxCtx.fillStyle = "red";
             break;
         case energyLevel <= 70:
-            changePlayerMood();
+            ChangePlayerMood();
             vfxCtx.fillStyle = "yellow";
             break;
         default:
-            changePlayerMood('happy');
+            ChangePlayerMood('happy');
             vfxCtx.fillStyle = "green";
     };
     vfxCtx.fillRect(batteryX, batteryY, energyLevel * 2, batteryHeight);
@@ -78,7 +87,7 @@ function DrawEnergyBar() {
     vfxCtx.fillStyle = "black";
     vfxCtx.fillText(energyLevel, centerLineX + 20, batteryY + 50);
     vfxCtx.fillText('Energy Level:', batteryX, batteryY - 20);
-    // draw the black outline on top of the energy bar and back
+    // draw the black outline on top of the energy bar and background
     vfxCtx.beginPath();
     vfxCtx.rect(batteryX, batteryY, batteryWidth, batteryHeight);
     vfxCtx.rect(batteryX + batteryWidth , batteryY + batteryHeight / 2 - 10, 6, 20);
@@ -87,33 +96,31 @@ function DrawEnergyBar() {
 };
 
 // function that switches the sprite animation Y frame to reflect current mood
-function changePlayerMood(mood) {
+function ChangePlayerMood(mood) {
     switch (mood) {
         case 'sad':
-            batteryborn.frameY = 1;
+            playerBatteryborn.frameY = 1;
             break;
         case 'happy':
-            batteryborn.frameY = 2;
+            playerBatteryborn.frameY = 2;
             break;
         default:
-            batteryborn.frameY = 0;
+            playerBatteryborn.frameY = 0;
             break;
     };
 };
 
-// if the transistion opacity value has been set it will slowly return to fully transparent
+// if the transistion opacity value has been set it will slowly return to fully transparent as the function is called 
 function CanvasTransitionUpdate(deltatime) {
     if (transitionOpacity >= 0) {
         frontCanvas.style.visibility = "Visible";
         frontCtx.fillStyle = "rgb(0, 0, 0," + transitionOpacity + ")";
-        frontCtx.fillRect(0, 0, canvas.width, canvas.height);
+        frontCtx.fillRect(0, 0, frontCanvas.width, frontCanvas.height);
         transitionOpacity -= (deltatime * 0.0005);
     } else {
         frontCanvas.style.visibility = "Hidden";
     };
 };
-
-
 
 // a generic character class for efficient sprite configuration
 class Character {
@@ -149,75 +156,39 @@ class Character {
     };
 };
 
-// a generic animated back class for efficient sprite configuration
-class Animatedback {
-    constructor(imageSrc, spriteW, spriteH, frames) {
-        this.image = new Image();
-        this.image.src = imageSrc;
-        this.spriteWidth = spriteW;
-        this.spriteHeight = spriteH;
-        this.frameX = 0;
-        this.maxFramesX = frames - 1;
-        this.timeSinceLastFrame = 0;
-        this.frameInterval = 1000;
-        this.markedForDeletion = false;
-    }
-    // update and draw methods will be called every time the screen refreshes and may increment the animation frame
-    update(deltatime) {
-        this.timeSinceLastFrame += deltatime;
-        if (this.timeSinceLastFrame >= this.frameInterval) {
-            if (this.frameX < this.maxFramesX) {
-                this.frameX++;
-            } else {
-                this.frameX = 0;
-            };
-            this.timeSinceLastFrame = 0 + (this.timeSinceLastFrame % this.frameInterval);
-        };
-    }
-    draw() {
-        backCtx.drawImage(this.image, this.spriteWidth * this.frameX, 0, this.spriteWidth, this.spriteHeight, 0, 0, canvas.width, canvas.height);
-    }
-};
+const playerBatteryborn = new Character(5, 150, "img/batteryborn.png", 180, 180, 3, 2);
 
-var backgroundImage = new Image("img/BackgroundSheet.png");
-backgroundImage.src = "img/BackgroundSheet.png";
-backgroundManager = {
-    backgrounds: backgroundImage,
-    spriteWidth: 480,
-    spriteHeight: 270,
-    frameX: 0,
-    frameY: 0,
+// the main animation loop
+function Animate(timeStamp) {
 
-    draw() {
-        backCtx.drawImage(this.backgrounds, this.spriteWidth * this.frameX, this.spriteHeight * this.frameY, this.spriteWidth, this.spriteHeight, 0, 0, backCanvas.width, backCanvas.height);
-    }
-};
+    let deltatime = timeStamp - lastFrameTime;
+    lastFrameTime = timeStamp;
 
-backgrounds = new Image("BackgroundSheet.png")
-backCtx.drawImage(backgrounds, this.spriteWidth * this.frameX, 0, this.spriteWidth, this.spriteHeight, 0, 0, canvas.width, canvas.height);
-batteryborn = new Character(5, 150, "img/batteryborn.png", 180, 180, 3, 2);
-//junkyard = new Animatedback("img/junkyard.png", 1920, 1080, 2);
-// animation loop
-function Animate(timestamp) {
-    let deltatime = timestamp - lastFrameTime;
-    lastFrameTime = timestamp;
-    backCtx.clearRect(0, 0, canvas.width, canvas.height);
-    frontCtx.clearRect(0, 0, canvas.width, canvas.height);
-    vfxCtx.clearRect(0, 0, canvas.width, vfxCanvas.height);
-    //junkyard.update(deltatime);
-    //junkyard.draw();
-    backgroundManager.draw();
-    batteryborn.update(deltatime);
-    batteryborn.draw();
-    DrawEnergyBar();
+    // fully clear each canvas
+    backCtx.clearRect(0, 0, backCanvas.width, backCanvas.height);
+    frontCtx.clearRect(0, 0, frontCanvas.width, frontCanvas.height);
+    vfxCtx.clearRect(0, 0, vfxCanvas.width, vfxCanvas.height);
+
+    // while on the title screen, ensure that the background is obscured by canvas transition darkness
     if (!gameStarted) {
         transitionOpacity = 1.5;
-    }    
+    };    
     CanvasTransitionUpdate(deltatime);
+
+    // draw the background using the backgroundManager method
+    backgroundManager.draw();
+
+    // update and draw the player character and energy bar
+    playerBatteryborn.update(deltatime);
+    playerBatteryborn.draw();
+    DrawEnergyBar();
+
+    // call the reveal span characters function every animation loop so that it is as seamless at possible
     RevealSpanCharacters(characterSpans, deltatime);
+    
     requestAnimationFrame(Animate);
 };
 
 
-// begin the game animation loop once the widow has fully loaded
+// begin the game animation loop once the window has fully loaded
 window.onload = Animate(0);

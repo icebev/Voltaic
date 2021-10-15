@@ -19,12 +19,26 @@ var energyLevel = 50;
 var maxEnergyLevel = 100;
 var inventory = [];
 
-// variables to keep track of animations and typewriter effect
+// variables to keep track of animations and the typewriter effect
 var lastFrameTime = 0;
 var timeSinceLastCharacter = 0;
 var characterSpans = [];
 var characterRevealDelay = 80;
+var allCharactersRevealed = false;
 var transitionOpacity = 1;
+
+// variables used by the audio system
+var tracksPlaying  = [];
+var buttonSounds = [];
+
+/* TRACK SET REFERENCE:
+The tracklist array contains the alphabetical IDs of all of the music track loops in the file system.
+A: Colossal Game Music Collection\5. Retro Music\Chiptunes Vol. I\3 - Dangerous Circuits
+B: Colossal Game Music Collection\5. Retro Music\Chiptunes Vol. I\4 - Digital Journey 
+*/
+const trackNameList = 
+["Aa", "Ab", "Ac", "Ad", 
+"Ba", "Bb", "Bc","Bd"];
 
 // constant variables used for referring to changing HTML elements
 const adventureTextContainerElement = document.getElementById("adventureTextContainer");
@@ -33,3 +47,4 @@ const namePlateLeftElement = document.getElementById("namePlateLeft");
 const namePlateRightElement = document.getElementById("namePlateRight");
 const continueButtonElement = document.getElementById("continueButton");
 const skipButtonElement = document.getElementById("skipButton");
+

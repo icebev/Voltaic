@@ -1,16 +1,17 @@
 ﻿//// DIALOGUE SYSTEM CODE FOR VOLTAIC ////
 
-// function called when the game should begin or restart
+// function called when the game should begin after the player name has been entered or upon restart
 function StartGame() {
+    backgroundManager.switchBackground("junkyard");
     energyLevel = 50;
     inventory = [];
     transitionOpacity = 1.5;
     StartTracks("A");
-    tracksPlaying[0].switchToTrack();
+    ChangeTrack("Aa");
     UpdateGameText(1);
 };
 
-// large function that takes in the target node ID to change what is being displayed
+// main function that takes in the target node ID to decide what should happen next
 function UpdateGameText(targetNodeId) {
     // find the specified text node inside the array literal using the target node ID
     let targetTextNode = adventureTextNodes.find(textNode => textNode.nodeId === targetNodeId);
@@ -22,14 +23,26 @@ function UpdateGameText(targetNodeId) {
         console.log("Failed to retrieve a node with ID: " + targetNodeId);
         return false;
     };    
-    // update the soundtracks playing, main adventure text, reveal speed, character nameplates and dialogue option buttons passing properties of the retrieved node
+    // update the soundtracks if requested
     if (currentTextNode.changeTrackSet) {
         StartTracks(currentTextNode.changeTrackSet);
         console.log(tracksPlaying);
     };  
     if (currentTextNode.changeTrack) {
         ChangeTrack(currentTextNode.changeTrack);
-    };  
+    };
+    
+    // starts a fade from black transisiton if requested
+    if (currentTextNode.transition) {
+        transitionOpacity = currentTextNode.transition;
+    };
+
+    // changes the background if requested
+    if (currentTextNode.changeBackground) {
+        backgroundManager.switchBackground(currentTextNode.changeBackground);
+    };
+
+    // update the main adventure text, reveal speed, character nameplates and dialogue option buttons passing properties of the retrieved node 
     ChangeTextSpeed(currentTextNode.textSpeed);
     ChangeAdventureText(currentTextNode.text);
     UpdateNamePlates(currentTextNode.speaker);
@@ -56,6 +69,11 @@ function ChangeTextSpeed(speed) {
 
 // function that will display the adventure text with a typewriter effect by first creating invisible span elements for each letter
 function ChangeAdventureText(inputString) {
+    if (inputString) {
+        allCharactersRevealed = false;
+    } else {
+        return console.log(`Warning, there is no text for node ${currentTextNode.nodeId}!`);
+    }
     // remove any old text first
     while (adventureTextContainerElement.firstChild) {
         adventureTextContainerElement.removeChild(adventureTextContainerElement.firstChild);
@@ -77,9 +95,20 @@ function ChangeAdventureText(inputString) {
         let newSpan = document.createElement("span");
         newSpan.innerHTML = character;
         newSpan.classList.add("hidden");
+        // change the text color based on the speaker
+        switch (currentTextNode.speaker) {
+            case "player":
+                newSpan.style.color = "blue";
+                break;
+            default:
+                if (currentTextNode.speaker) {
+                    newSpan.style.color = "orange";
+                };
+                break;
+        };
         adventureTextContainerElement.appendChild(newSpan);
         characterSpans.push({
-           span: newSpan,
+           span: newSpan
         });
     });
 };
@@ -173,11 +202,12 @@ function RemoveFromInventory(stringToRemove) {
     };
 };
 
-// function to alter the player energy level if the dialogue choice object includes an energyChange
-function UpdateEnergy(dialogueChoice) {
-    if (Math.abs(dialogueChoice.energyChange)) {
-        energyLevel += dialogueChoice.energyChange;
-        console.log(`Energy level has been changed by ${dialogueChoice.energyChange} to a new value of ${energyLevel}`);
+// function to alter the player energy level if the dialogue choice object selected includes an energyChange
+function UpdateEnergy(dialogueChoiceSelected) {
+    let deltaEnergy = dialogueChoiceSelected.energyChange;
+    if (Math.abs(deltaEnergy)) {
+        energyLevel += deltaEnergy;
+        console.log(`Energy level has been changed by ${deltaEnergy} to a new value of ${energyLevel}.`);
         if (energyLevel > maxEnergyLevel) {
             console.log(`Maximum energy level was exceeded by ${energyLevel - maxEnergyLevel}!`)
             energyLevel = 100;

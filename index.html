@@ -4,21 +4,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Voltaic</title>
+    <link rel="shortcut icon" type="image/jpg" href="img/favicon.ico"/>
     <link href="styles.css" rel="stylesheet" />
 </head>
 <body>
     <!-- background canvas before other interactable elements to not block them-->
     <canvas id="backCanvas"></canvas>
 
-    
-
-   
     <!-- div that contains the adventure text-->
     <div class="container" id="batteryBox"></div>
     <div class="container" id="adventureTextContainer"></div>
     <div class="container namePlate" id="namePlateLeft"></div>
     <div class="container namePlate" id="namePlateRight"></div>
     <!-- div that contains the choice option buttons -->
+    <canvas id="vfxCanvas"></canvas>
+
     <div class="container"  id="dialogueChoicesContainer">
         <button id="continueButton" class="genericButton centralButton">Continue</button>
         <button id="skipButton" class="genericButton centralButton" onclick="ChangeTextSpeed('superfast')">Skip</button>
@@ -26,7 +26,6 @@
         </div>
     </div>
     
-    <canvas id="vfxCanvas"></canvas>
     <canvas id="frontCanvas"></canvas>
     
     <!-- first div is for the title and entry of the player name -->
@@ -38,6 +37,7 @@
         <p id="nameWarning"></p>
     </div>
     
+    <script src="backgroundManager.js"></script>
     <script src="globalVariables.js"></script>
     <script src="audioManager.js"></script>
     <script src="buttonFunctions.js"></script>

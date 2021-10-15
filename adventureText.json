@@ -62,6 +62,8 @@
         "text": "You find a robot dog who needs a new battery.",
         "changeTrackSet": "B",
         "changeTrack": "Ba",
+        "changeBackground": "field",
+        "transition" : 1,
         "textSpeed": "slow",
         "speaker": "narrator",
         "dialogueChoices": [
@@ -138,6 +140,7 @@
     },
     {
         "nodeId": 22,
+        "changeBackground": "market",
         "text": "You monster!",
         "skipToNode": 19
     },
