@@ -16,6 +16,8 @@ var gameStarted = false;
 
 // variables for adaptive energy level and inventory system
 var energyLevel = 50;
+var shownEnergyLevel = 50;
+var timeSinceCorrection = 0;
 var maxEnergyLevel = 100;
 var inventory = [];
 
@@ -26,6 +28,7 @@ var characterSpans = [];
 var characterRevealDelay = 80;
 var allCharactersRevealed = false;
 var transitionOpacity = 1;
+var disableTransferAnimations = false;
 
 // variables used by the audio system
 var tracksPlaying  = [];
@@ -37,8 +40,9 @@ A: Colossal Game Music Collection\5. Retro Music\Chiptunes Vol. I\3 - Dangerous 
 B: Colossal Game Music Collection\5. Retro Music\Chiptunes Vol. I\4 - Digital Journey 
 */
 const trackNameList = 
-["Aa", "Ab", "Ac", "Ad", 
-"Ba", "Bb", "Bc","Bd"];
+[ "Sa",
+  "Aa", "Ab", "Ac", "Ad", 
+  "Ba", "Bb", "Bc","Bd"];
 
 // constant variables used for referring to changing HTML elements
 const adventureTextContainerElement = document.getElementById("adventureTextContainer");

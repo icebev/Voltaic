@@ -6,8 +6,8 @@ function StartGame() {
     energyLevel = 50;
     inventory = [];
     transitionOpacity = 1.5;
-    StartTracks("A");
-    ChangeTrack("Aa");
+    StartTracks("S");
+    ChangeTrack("Sa");
     UpdateGameText(1);
 };
 
@@ -205,8 +205,11 @@ function RemoveFromInventory(stringToRemove) {
 // function to alter the player energy level if the dialogue choice object selected includes an energyChange
 function UpdateEnergy(dialogueChoiceSelected) {
     let deltaEnergy = dialogueChoiceSelected.energyChange;
+    (dialogueChoiceSelected.noEnergyAnimation) ? disableTransferAnimations = true : disableTransferAnimations = false;
     if (Math.abs(deltaEnergy)) {
         energyLevel += deltaEnergy;
+        energyBoltManager.boltCreationDuration = (Math.abs(deltaEnergy) * 50);
+        (deltaEnergy > 0) ? energyBoltManager.currentBoltDirection = "left" : energyBoltManager.currentBoltDirection = "right";
         console.log(`Energy level has been changed by ${deltaEnergy} to a new value of ${energyLevel}.`);
         if (energyLevel > maxEnergyLevel) {
             console.log(`Maximum energy level was exceeded by ${energyLevel - maxEnergyLevel}!`)

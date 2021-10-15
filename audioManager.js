@@ -5,7 +5,7 @@ class SoundEffect {
     constructor(fileName) {
         this.sound = new Audio();
         this.sound.src = "aud/" + fileName + ".wav";
-        this.sound.volume = 0.3;
+        this.sound.volume = 0.015;
         console.log(`Created SFX ${fileName}`);
     }
 };
@@ -25,7 +25,7 @@ class AudioTrack {
     }
     switchToTrack() {
         tracksPlaying.forEach((track) => {track.sound.volume = 0})
-        this.sound.volume = 0.2;
+        this.sound.volume = 0.01;
     }
 };
 

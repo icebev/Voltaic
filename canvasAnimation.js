@@ -58,7 +58,9 @@ function DisplayChoiceButtons(textNode) {
 
 
 // drawing an energy bar on the canvas with the appearance of a battery
-function DrawEnergyBar() {
+function DrawEnergyBar(deltatime) {
+    timeSinceCorrection += deltatime;
+    let correctionInterval = 500 * Math.random();
     let centerLineX = vfxCanvas.width / 2;
     let batteryWidth = maxEnergyLevel * 2;
     let batteryHeight = 75;
@@ -69,11 +71,11 @@ function DrawEnergyBar() {
     vfxCtx.fillRect(centerLineX - batteryWidth / 2, batteryY, batteryWidth, batteryHeight);
     // alter player sprite mood and battery fill color based on the energy level
     switch (true) {
-        case energyLevel <= 20:
+        case shownEnergyLevel <= 20:
             ChangePlayerMood('sad');
             vfxCtx.fillStyle = "red";
             break;
-        case energyLevel <= 70:
+        case shownEnergyLevel <= 70:
             ChangePlayerMood();
             vfxCtx.fillStyle = "yellow";
             break;
@@ -81,11 +83,11 @@ function DrawEnergyBar() {
             ChangePlayerMood('happy');
             vfxCtx.fillStyle = "green";
     };
-    vfxCtx.fillRect(batteryX, batteryY, energyLevel * 2, batteryHeight);
+    vfxCtx.fillRect(batteryX, batteryY, shownEnergyLevel * 2, batteryHeight);
     // add a numeric energy indicator and a descriptive label on top
     vfxCtx.font = '35px Impact';
     vfxCtx.fillStyle = "black";
-    vfxCtx.fillText(energyLevel, centerLineX + 20, batteryY + 50);
+    vfxCtx.fillText(shownEnergyLevel, centerLineX + 20, batteryY + 50);
     vfxCtx.fillText('Energy Level:', batteryX, batteryY - 20);
     // draw the black outline on top of the energy bar and background
     vfxCtx.beginPath();
@@ -93,6 +95,15 @@ function DrawEnergyBar() {
     vfxCtx.rect(batteryX + batteryWidth , batteryY + batteryHeight / 2 - 10, 6, 20);
     vfxCtx.lineWidth = "6";
     vfxCtx.stroke();
+    if (timeSinceCorrection >= correctionInterval) {
+        timeSinceCorrection = 0 + (timeSinceCorrection % correctionInterval);
+        let energyDifference = energyLevel - shownEnergyLevel;
+        if (energyDifference > 0) {
+            shownEnergyLevel += 1;
+        } else if (energyDifference < 0) {
+            shownEnergyLevel -= 1;
+        };
+    };
 };
 
 // function that switches the sprite animation Y frame to reflect current mood
@@ -178,10 +189,16 @@ function Animate(timeStamp) {
     // draw the background using the backgroundManager method
     backgroundManager.draw();
 
+    energyBoltManager.generateEnergyBolts(deltatime);
+    energyBoltManager.updateEnergyBolts(deltatime);
+    energyBoltManager.drawEnergyBolts();
+
     // update and draw the player character and energy bar
     playerBatteryborn.update(deltatime);
     playerBatteryborn.draw();
-    DrawEnergyBar();
+    DrawEnergyBar(deltatime);
+
+    
 
     // call the reveal span characters function every animation loop so that it is as seamless at possible
     RevealSpanCharacters(characterSpans, deltatime);

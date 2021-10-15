@@ -24,8 +24,15 @@ const backgroundManager = {
     draw() {
         backCtx.drawImage(this.backgrounds, this.frameWidth * this.frameX, this.frameHeight * this.frameY, this.frameWidth, this.frameHeight, 0, 0, backCanvas.width, backCanvas.height);
     },
-    switchLook() {
-        (this.frameX) ? this.frameX = 0 : this.frameX = 1;
+    switchLook(look) {
+        switch (look) {
+            case "dramatic":
+                this.frameX = 1;
+                break;
+            default:
+                this.frameX = 0;
+                break;
+        };
     },
     switchBackground(backgroundName) {
         let targetBackground = this.backgroundSetup.find(obj => obj.name === backgroundName);

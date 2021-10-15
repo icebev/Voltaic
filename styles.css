@@ -77,10 +77,12 @@ body {
 }
 
 #namePlateLeft {
+    color: blue;
     transform: translate(-400px, -35px);
 }
 
 #namePlateRight {
+    color: orange;
     transform: translate(200px, -35px);
 }
 

@@ -44,6 +44,7 @@
                 "text": "Yes! Yummy.",
                 "inventoryRemove": ["battery"],
                 "energyChange": 50,
+                "noEnergyAnimation": 1,
                 "nextText": 6
             },
             {
