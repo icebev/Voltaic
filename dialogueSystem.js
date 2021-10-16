@@ -42,6 +42,13 @@ function UpdateGameText(targetNodeId) {
         backgroundManager.switchBackground(currentTextNode.changeBackground);
     };
 
+    // changes encounter character being drawn if requested
+    console.log(currentTextNode);
+    if (currentTextNode.encounterChange === 1) {
+        console.log("Encounter request.");
+        encounterSpriteManager.switchEncounter(currentTextNode.encounters);
+    };
+
     // update the main adventure text, reveal speed, character nameplates and dialogue option buttons passing properties of the retrieved node 
     ChangeTextSpeed(currentTextNode.textSpeed);
     ChangeAdventureText(currentTextNode.text);
@@ -214,6 +221,10 @@ function UpdateEnergy(dialogueChoiceSelected) {
         if (energyLevel > maxEnergyLevel) {
             console.log(`Maximum energy level was exceeded by ${energyLevel - maxEnergyLevel}!`)
             energyLevel = 100;
+        };
+        if (energyLevel <= 0) {
+            console.log(`Minimum energy level was exceeded by ${0 - energyLevel}!`)
+            energyLevel = 0;
         };
     };
 };

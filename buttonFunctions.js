@@ -42,10 +42,12 @@ function SelectChoice(dialogueChoiceSelected) {
     UpdateEnergy(dialogueChoiceSelected);
     // retrieve the next target node from the dialogue choice object
     let nextTargetNodeId = dialogueChoiceSelected.nextText;
-    // restart the game if a value of 0 is received, otherwise continue to the target node
+    // restart the game if a value of 0 is received or go to specified game over node if the player has no energy, otherwise continue to the target node
     if (nextTargetNodeId === 0) {
         return StartGame();
-    } else {
+    } else if (energyLevel === 0) {
+        UpdateGameText(404);
+    } else {    
         UpdateGameText(nextTargetNodeId);
     };
 };

@@ -1,62 +1,208 @@
 [
     {
         "nodeId": 1,
-        "text": "Hello _playerName you have awoken at last."
+        "text": "You have awoken at last.",
+        "textSpeed": "fast",
+        "encounterChange": 1,
+        "encounters": []
     },
     {
         "nodeId": 2,
-        "text": "You find yourself in a scrapyard surrounded by junk. There is an old battery nearby.",
-        "speaker": "player",
-        "dialogueChoices": [
-            {
-                "text": "Take the battery",
-                "inventoryAdd": ["battery"],
-                "nextText": 3
-            },
-            {
-                "text": "Leave the battery",
-                "nextText": 6
-            },
-            {
-                "text": "Stamp on the battery.",
-                "energyLevelRequired": 50,
-                "energyChange": -10,
-                "nextText": 16
-            },
-            {
-                "text": "Stamp on the battery.",
-                "energyLevelRequired": 50,
-                "energyChange": -10,
-                "nextText": 16
-            },
-            {
-                "text": "Stamp on the battery.",
-                "energyLevelRequired": 50,
-                "energyChange": -10,
-                "nextText": 16
-            }]
+        "text": "You find yourself surrounded by junk and rusty old machinery."
     },
     {
         "nodeId": 3,
-        "text": "You pick up the battery. Will you eat it?",
+        "text": "You probably have a few questions.",
         "dialogueChoices": [
             {
-                "text": "Yes! Yummy.",
-                "inventoryRemove": ["battery"],
-                "energyChange": 50,
-                "noEnergyAnimation": 1,
+                "text": "Where am I?",
+                "nextText": 4
+            },
+            {
+                "text": "Who am I?",
+                "nextText": 5
+            },
+            {
+                "text": "Why am I?",
                 "nextText": 6
             },
             {
-                "text": "No, save it for later.",
-                "nextText": 6
-            }]
+                "text": "I'll take a look around.",
+                "nextText": 7
+            }
+        ]
+    },
+    {
+        "nodeId": 4,
+        "text": "Judging by your surroundings, you are in some sort of scrapyard.",
+        "skipToNode": 3
     },
     {
         "nodeId": 5,
-        "speaker": "none",
-        "changeTrack": "Cd",
-        "text": "You stop but the battery is ruined."
+        "text": "Your name is _playerName and you are alive!",
+        "skipToNode": 3
+    },
+    {
+        "nodeId": 6,
+        "text": "You look down at your hands and see only metal.",
+        "skipToNode": 3
+    },
+    {
+        "nodeId": 7,
+        "text": "You soon see something glinting in amongst the scrap.",
+        "dialogueChoices": [
+            {
+                "text": "Ooh, shiny!",
+                "nextText": 8
+            },
+            {
+                "text": "It could be dangerous, I'll leave it.",
+                "nextText": 11
+            }
+        ]
+    },
+    {
+        "nodeId": 8,
+        "text": "You've found a battery and it looks intact.",
+        "dialogueChoices": [
+            {
+                "text": "I'll eat it now.",
+                "energyChange": 25,
+                "noEnergyAnimation": 1,
+                "nextText": 9
+            },
+            {
+                "text": "I'll save it for later.",
+                "inventoryAdd": ["battery"],
+                "nextText": 10
+            }
+        ]
+    },
+    {
+        "nodeId": 9,
+        "text": "You feel a surge of newfound energy. It was delicious!",
+        "skipToNode": 11
+    },
+    {
+        "nodeId": 10,
+        "text": "You put away the battery. It might come in handy later.",
+        "skipToNode": 11
+    },
+    {
+        "nodeId": 11,
+        "text": "You hear the sound of heavy footsteps behind you, getting closer.",
+        "changeTrackSet": "A",
+        "changeTrack": "Aa"
+    },
+    {
+        "nodeId": 12,
+        "text": "BOOM!   SMASHHH!   CRUNCHHH!",
+        "speaker": "???",
+        "textSpeed": "slow"
+    },
+    {
+        "nodeId": 13,
+        "transition": 1,
+        "text": "BZZT! VOLATILE TRASH DETECTED! PROCEEDING TO CRUSH.",
+        "changeTrack": "Ab",
+        "encounterChange": 1,
+        "encounters": ["crusher"],
+        "textSpeed": "slow",
+        "speaker": "???"
+    },
+    {
+        "nodeId": 14,
+        "text": "The enormous robot raises an arm hammer ready to strike you.",
+        "changeTrack": "Ac",
+        "dialogueChoices": [
+            {
+                "text": "Wait, I'm not trash!",
+                "nextText": 15
+            },
+            {
+                "text": "Hmm, it doesn't seem very smart...",
+                "nextText": 18
+            },
+            {
+                "text": "Not today, take THIS!",
+                "nextText": 21,
+                "energyChange": -30
+            },
+            {
+                "text": "I'll do nothing.",
+                "nextText": 24
+            }
+        ]
+    },
+    {
+        "nodeId": 15,
+        "text": "Please stop Mr. Robot! I'm not just trash!",
+        "speaker": "player"
+    },
+    {
+        "nodeId": 16,
+        "text": "The hulking robotic trash compactor freezes for a moment."
+    },
+    {
+        "nodeId": 17,
+        "text": "CR-NCHR ERROR CODE 404. CANNOT COMPUTE. REBOOTING SYSTEMS",
+        "speaker": "CR-NCHR",
+        "skipToNode": 14
+    },
+    {
+        "nodeId": 18,
+        "text": "Manual override. You are unauthorised to proceed!",
+        "speaker": "player"
+    },
+    {
+        "nodeId": 19,
+        "text": "CR-NCHR OVERRIDE ACCEPTED. DISENGAGING TARGET.",
+        "speaker": "CR-NCHR"
+    },
+    {
+        "nodeId": 20,
+        "text": "The robot stomps away. You remain safe for now.",
+        "changeTrackSet": "S",
+        "changeTrack": "Sa",
+        "transition": 1,
+        "encounterChange": 1,
+        "encounters": []
+    },
+    {
+        "nodeId": 21,
+        "text": "You unleash an arc of electricity from your hands!",
+        "changeTrack": "Ad",
+        "transition": 0.5
+    },
+    {
+        "nodeId": 22,
+        "text": "CR-NCHR CORE INTEGRITY FAILURE. RE...boot..pzzzzzt...",
+        "speaker": "CR-NCHR"
+    },
+    {
+        "nodeId": 23,
+        "text": "The robot collapses into a smouldering heap. You remain safe for now.",
+        "changeTrackSet": "S",
+        "changeTrack": "Sa",
+        "transition": 1,
+        "encounterChange": 1,
+        "encounters": [0]
+    },
+    {
+        "nodeId": 24,
+        "text": "You stand still and prepare to be crushed.",
+        "changeTrack": "Ad",
+        "dialogueChoices": [
+            {
+                "text": "Wait, no!",
+                "nextText": 14
+            },
+            {
+                "text": "I accept this fate.",
+                "energyChange": -100,
+                "nextText": 200
+            }
+        ]
     },
     {
         "nodeId": 6,
@@ -67,6 +213,8 @@
         "transition" : 1,
         "textSpeed": "slow",
         "speaker": "narrator",
+        "encounterChange": 1,
+        "encounters": ["lyza", "pete"],
         "dialogueChoices": [
             {
                 "text": "Use your battery",
@@ -77,6 +225,7 @@
             {
                 "text": "Transfer some of your own power",
                 "energyChange": -40,
+                "noEnergyAnimation": 1,
                 "nextText": 21
             },
             {
@@ -148,5 +297,18 @@
     {
     "nodeId": 99,
         "text": "Thank you for playing!"
+    },
+    {
+        "nodeId": 404,
+        "text": "You are unable to continue as the last dregs of energy leave you. Restart?",
+        "dialogueChoices": [
+            {
+                "text": "Yes",
+                "nextText": 0
+            },
+            {
+                "text": "No",
+                "nextText": 99
+            }]
     }
 ]

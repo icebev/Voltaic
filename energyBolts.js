@@ -83,6 +83,8 @@ var energyBoltManager = {
             this.energyBoltArray[i].y += -2 + 4 * Math.random();
             if (this.currentBoltDirection === "left" && this.energyBoltArray[i].x <= (playerBatteryborn.x + playerBatteryborn.spriteWidth * playerBatteryborn.scale / 2)) {
                 this.energyBoltArray[i].markedForDeletion = true;
+            } else if (this.currentBoltDirection === "right" && this.energyBoltArray[i].x >= 1300) {
+                this.energyBoltArray[i].markedForDeletion = true;
             };
             if (this.energyBoltArray[i].markedForDeletion === true) {
                 this.energyBoltArray.splice(i, 1);
