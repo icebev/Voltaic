@@ -10,24 +10,31 @@ const canvasDimensions = {
 /* 
 backCanvas: For rendering the background image and chatacter sprites.
 frontCanvas: On top of most HTML elements for the fade from black transition effect.
-vfxCanvas: For rendering the energy bar and energy transfer VFX, does not cover the dialogue choice buttons.
+vfxCanvas: For rendering the energy bar and some of the energy transfer VFX on top of certain HTML elements
+titleScreenCanvas: For rendering the moving energy bolts on the title screen.
 */ 
+var canvasArray = [];
 const backCanvas = document.getElementById("backCanvas");
 const frontCanvas = document.getElementById("frontCanvas");
 const vfxCanvas = document.getElementById("vfxCanvas");
+const titleScreenCanvas = document.getElementById("titleScreenOverlay");
+canvasArray.push(backCanvas, frontCanvas, vfxCanvas, titleScreenCanvas);
 
 // setting up the each 2D canvas context
+var ctxArray = [];
 const backCtx = backCanvas.getContext('2d');
 const frontCtx = frontCanvas.getContext('2d');
 const vfxCtx = vfxCanvas.getContext('2d');
+const titleCtx = titleScreenCanvas.getContext('2d');
+ctxArray.push(backCtx, frontCtx, vfxCtx, titleCtx);
+
 
 // define canvas dimensions
-backCanvas.width = canvasDimensions.width;
-backCanvas.height = canvasDimensions.height;
-frontCanvas.width = canvasDimensions.width;
-frontCanvas.height = canvasDimensions.height;
-vfxCanvas.width = canvasDimensions.width;
-vfxCanvas.height = canvasDimensions.height;
+canvasArray.forEach((canvas) => {
+    canvas.width = canvasDimensions.width;
+    canvas.height = canvasDimensions.height;
+});
+
 
 // function called as part of the animation loop that adds the 'revealed' class to each of the adventure text span elements over time to make them visible
 function RevealSpanCharacters(revealList, deltatime) {
@@ -56,6 +63,7 @@ function DisplayChoiceButtons(textNode) {
     }; 
 };
 
+// object that manages the NPC sprites being displayed 
 const encounterSpriteManager = {
     activeEncounterCharacters: [],
     encounters: [
@@ -116,7 +124,7 @@ const encounterSpriteManager = {
         this.activeEncounterCharacters.forEach((character) => character.draw());
     }
 
-}
+};
 
 // drawing an energy bar on the canvas with the appearance of a battery
 function DrawEnergyBar(deltatime) {
@@ -228,8 +236,8 @@ class Character {
     };
 };
 
-const playerBatteryborn = new Character(-5, 150, "img/batteryborn.png", 180, 180, 3, 2, 800);
-
+// create the player character using the character class
+const playerBatteryborn = new Character(-5, 170, "img/batteryborn.png", 180, 180, 3, 2, 800);
 
 // the main animation loop
 function Animate(timeStamp) {
@@ -238,19 +246,21 @@ function Animate(timeStamp) {
     lastFrameTime = timeStamp;
 
     // fully clear each canvas
-    backCtx.clearRect(0, 0, backCanvas.width, backCanvas.height);
-    frontCtx.clearRect(0, 0, frontCanvas.width, frontCanvas.height);
-    vfxCtx.clearRect(0, 0, vfxCanvas.width, vfxCanvas.height);
+    ctxArray.forEach((ctx) => {
+        ctx.clearRect(0, 0, canvasDimensions.width, canvasDimensions.height);
+    });
 
-    // while on the title screen, ensure that the background is obscured by canvas transition darkness
+    // while on the title screen, ensure that the background is obscured by canvas transition darkness and draw the floating energy bolts
     if (!gameStarted) {
         transitionOpacity = 1.5;
+        titleBoltManager.drawTitleScreenBolts(deltatime);
     };    
     CanvasTransitionUpdate(deltatime);
 
     // draw the background using the backgroundManager method
     backgroundManager.draw();
 
+    // generate any new energy bolt particles if required, then update and draw then
     energyBoltManager.generateEnergyBolts(deltatime);
     energyBoltManager.updateEnergyBolts(deltatime);
     energyBoltManager.drawEnergyBolts();
@@ -258,13 +268,11 @@ function Animate(timeStamp) {
     // update and draw the player character and energy bar
     playerBatteryborn.update(deltatime);
     playerBatteryborn.draw();
+    DrawEnergyBar(deltatime);
     
+    // update and draw the encounter NPC sprites
     encounterSpriteManager.updateNPCs(deltatime);
     encounterSpriteManager.drawNPCs();
-
-    DrawEnergyBar(deltatime);
-
-    
 
     // call the reveal span characters function every animation loop so that it is as seamless at possible
     RevealSpanCharacters(characterSpans, deltatime);

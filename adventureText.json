@@ -8,7 +8,7 @@
     },
     {
         "nodeId": 2,
-        "text": "You find yourself surrounded by junk and rusty old machinery."
+        "text": "You find yourself surrounded by junk and rusty machinery."
     },
     {
         "nodeId": 3,
@@ -34,7 +34,7 @@
     },
     {
         "nodeId": 4,
-        "text": "Judging by your surroundings, you are in some sort of scrapyard.",
+        "text": "Judging by your surroundings, you are in a scrapyard.",
         "skipToNode": 3
     },
     {
@@ -145,13 +145,13 @@
     },
     {
         "nodeId": 17,
-        "text": "CR-NCHR ERROR CODE 404. CANNOT COMPUTE. REBOOTING SYSTEMS",
+        "text": "CR-NCHR ERROR CODE 404. CANNOT COMPUTE. REBOOTING SYSTEMS.",
         "speaker": "CR-NCHR",
         "skipToNode": 14
     },
     {
         "nodeId": 18,
-        "text": "Manual override. You are unauthorised to proceed!",
+        "text": "MANUAL OVERRIDE! You are unauthorised to proceed!",
         "speaker": "player"
     },
     {
@@ -166,7 +166,8 @@
         "changeTrack": "Sa",
         "transition": 1,
         "encounterChange": 1,
-        "encounters": []
+        "encounters": [],
+        "skipToNode": 25
     },
     {
         "nodeId": 21,
@@ -181,12 +182,13 @@
     },
     {
         "nodeId": 23,
-        "text": "The robot collapses into a smouldering heap. You remain safe for now.",
+        "text": "The robot collapses in a smouldering heap. You remain safe for now.",
         "changeTrackSet": "S",
         "changeTrack": "Sa",
         "transition": 1,
         "encounterChange": 1,
-        "encounters": [0]
+        "encounters": [0],
+        "skipToNode": 25
     },
     {
         "nodeId": 24,
@@ -200,7 +202,175 @@
             {
                 "text": "I accept this fate.",
                 "energyChange": -100,
-                "nextText": 200
+                "noEnergyAnimation": 1
+            }
+        ]
+    },
+    {
+        "nodeId": 25,
+        "text": "I should probably get out of here...",
+        "speaker": "player"
+    },
+    {
+        "nodeId": 26,
+        "text": "Which direction will you go?",
+        "dialogueChoices": [
+            {
+                "text": "I'll go North.",
+                "nextText": 27
+            },
+            {
+                "text": "I'll go South.",
+                "nextText": 27
+            },
+            {
+                "text": "I'll go East.",
+                "nextText": 27
+            },
+            {
+                "text": "I'll go West.",
+                "nextText": 27
+            }
+        ]
+    },
+    {
+        "nodeId": 27,
+        "text": "After walking for some time, you find yourself in a field.",
+        "transition": 1.5,
+        "changeTrackSet": "B",
+        "changeTrack": "Ba",
+        "changeBackground": "field"
+    },
+    {
+        "nodeId": 28,
+        "text": "The full Moon shines down, casting everything in a silver light."
+    },
+    {
+        "nodeId": 29,
+        "text": "WOOF! WOOF!",
+        "speaker": "???",
+        "changeTrack": "Bb"
+    },
+    {
+        "nodeId": 30,
+        "text": "Out of the shadows, a robot dog appears!",
+        "transition": 1.5,
+        "encounterChange": 1,
+        "encounters": ["lyza"]
+    },
+    {
+        "nodeId": 31,
+        "text": "It looks up at you with puppy eyes. It seems hungry.",
+        "dialogueChoices": [
+            {
+                "text": "I'll pet the dog.",
+                "energyChange": -10,
+                "noEnergyAnimation": 1,
+                "nextText": 33
+            },
+            {
+                "text": "I'll transfer it some of my energy!",
+                "energyChange": -30,
+                "energyLevelRequired": 40,
+                "inventoryAdd": ["robotDog"],
+                "nextText": 34
+            },
+            {
+                "text": "I'll feed it my battery.",
+                "inventoryRequired": ["battery"],
+                "inventoryRemove": ["battery"],
+                "inventoryAdd": ["robotDog"],
+                "nextText": 35
+            },
+            {
+                "text": "I'll leave the pesky mut alone.",
+                "nextText": 42
+            }
+        ]
+    },
+    {
+        "nodeId": 33,
+        "text": "It bites your hand as you reach down! It seems hungry.",
+        "changeTrack": "Bc",
+        "skipToNode": 43
+    },
+    {
+        "nodeId": 34,
+        "text": "You recharge the dog using your own energy.",
+        "changeTrack": "Bd",
+        "skipToNode": 36
+    },
+    {
+        "nodeId": 35,
+        "text": "The dog gulps down the battery. Then it jumps into your arms! ",
+        "changeTrack": "Bd"
+    },
+    {
+        "nodeId": 36,
+        "text": "You've made a new friend. You see the name Lyza on its collar."
+    },
+    {
+        "nodeId": 37,
+        "text": "WOOF WOOF!",
+        "speaker": "Lyza"
+    },
+    {
+        "nodeId": 38,
+        "text": "Aww! Come here little doggie, we'll get you to safety.",
+        "speaker": "player",
+        "skipToNode": 42
+    },
+    {
+        "nodeId": 39,
+        "text": "You siphon the energy from the dog.",
+        "changeTrack": "Bd"
+    },
+    {
+        "nodeId": 40,
+        "text": "WOOF woo.. wo...",
+        "speaker": "Lyza",
+        "textSpeed": "slow",
+        "changeTrack": "Bd"
+    },
+    {
+        "nodeId": 41,
+        "transition": 1,
+        "text": "...",
+        "speaker": "player",
+        "encounterChange" : 1,
+        "encounters": []
+    },
+    {
+        "nodeId": 42,
+        "text": "You continue walking along the winding road.",
+        "skipToNode": 60
+    },
+    {
+        "nodeId": 43,
+        "text": "It looks up at you once again.",
+        "dialogueChoices": [
+            {
+                "text": "That hurt! I'll drain it's energy.",
+                "energyChange": 30,
+                "nextText": 39
+            },
+            {
+                "text": "I'll transfer it some of my energy!",
+                "energyChange": -30,
+                "energyLevelRequired": 40,
+                "inventoryAdd": ["robotDog"],
+                "nextText": 34
+            },
+            {
+                "text": "I'll feed it my battery.",
+                "inventoryRequired": ["battery"],
+                "inventoryRemove": ["battery"],
+                "inventoryAdd": ["robotDog"],
+                "nextText": 35
+            },
+            {
+                "text": "I'll leave the pesky mutt alone.",
+                "nextText": 42
             }
         ]
     },
@@ -234,6 +404,7 @@
             },
             {
                 "text": "Drain the dog",
+                "transition": 0.5,
                 "energyChange": 50, 
                 "nextText": 22
             }]

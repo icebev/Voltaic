@@ -2,7 +2,7 @@
 
 // image particle class
 class ImageParticle {
-    constructor(imageSource, imageWidth, imageHeight, x, y, direction, speed, scale, shrinkFactor) {
+    constructor(imageSource, imageWidth, imageHeight, x, y, direction, speed, scale, shrinkFactor, targetCanvas) {
         this.image = new Image();
         this.image.src = imageSource;
         this.imageWidth = imageWidth;
@@ -14,6 +14,7 @@ class ImageParticle {
         this.speed = speed;
         this.scale = scale;
         this.shrinkFactor = shrinkFactor;
+        this.targetCanvas = targetCanvas;
 
         switch (direction) {
             case "right":
@@ -40,9 +41,17 @@ class ImageParticle {
         };
     };
     draw() {
-        backCtx.drawImage(this.image, 0, 0, this.imageWidth, this.imageHeight, this.x, this.y, this.imageWidth * this.scale, this.imageHeight * this.scale);
-    
-    }
+        switch (this.targetCanvas) {
+            case "back":
+                backCtx.drawImage(this.image, 0, 0, this.imageWidth, this.imageHeight, this.x, this.y, this.imageWidth * this.scale, this.imageHeight * this.scale);
+                break;
+            case "vfx":
+                vfxCtx.drawImage(this.image, 0, 0, this.imageWidth, this.imageHeight, this.x, this.y, this.imageWidth * this.scale, this.imageHeight * this.scale);
+                break;
+            default:
+                break;
+        };
+    };
 };
 
 var energyBoltManager = {
@@ -65,6 +74,9 @@ var energyBoltManager = {
             let nextBoltScaleFactor = 0.0025 * Math.random();
             let nextBoltY = 300 + 100 * Math.random();
             let nextBoltX = 0;
+            let canvasAllocator = Math.random();
+            let targetCanvas = "";
+            (canvasAllocator > 0.5) ? targetCanvas = "back" : targetCanvas = "vfx";
             if (this.currentBoltDirection === "right") {
                 nextBoltX = (playerBatteryborn.x + playerBatteryborn.spriteWidth * playerBatteryborn.scale / 2) + 100 * Math.random();
             } else if (this.currentBoltDirection === "left") {
@@ -72,7 +84,7 @@ var energyBoltManager = {
             } else {
                 return console.log("Bolt direction error.");
             }
-            this.energyBoltArray.push(new ImageParticle("img/energyBolt.png", 150, 150, nextBoltX, nextBoltY, this.currentBoltDirection, nextBoltSpeed, nextBoltScale, nextBoltScaleFactor));
+            this.energyBoltArray.push(new ImageParticle("img/energyBolt.png", 150, 150, nextBoltX, nextBoltY, this.currentBoltDirection, nextBoltSpeed, nextBoltScale, nextBoltScaleFactor, targetCanvas));
             this.timeSinceLastBolt = 0 + (this.timeSinceLastBolt % this.timeBetweenBolts);
             this.timeBetweenBolts = 100 + 200 * Math.random();
         };
@@ -101,3 +113,52 @@ var energyBoltManager = {
         this.energyBoltArray.forEach(object => object.draw());
     }
 };
+
+// create standard bolt image
+var boltImage = new Image();
+boltImage.src = "img/energyBolt.png"
+// manager object for the floating energy bolts on the title screen
+const titleBoltManager = {
+    titleBoltUpdateInterval: 50,
+    timeSinceTitleBoltUpdate: 0,
+    maxBoltY: 265,
+    minBoltY: 260,
+    titleBolts : [
+        leftBolt = {
+            x: 530,
+            y: 265,
+            direction: "up" 
+        },
+        rightBolt = {
+            x: 950,
+            y: 265,
+            direction: "down" 
+        }
+    ],
+    drawTitleScreenBolts(deltatime) {
+        this.timeSinceTitleBoltUpdate += deltatime;
+        if (this.timeSinceTitleBoltUpdate >= this.titleBoltUpdateInterval) {
+            this.titleBolts.forEach((bolt) => {
+                let dY = Math.random();
+                switch (bolt.direction) {
+                    case "up":
+                        bolt.y -= dY;
+                        if (bolt.y <= this.minBoltY) {
+                            bolt.direction = "down";
+                        };
+                        break;
+                    case "down":
+                        bolt.y += dY;
+                        if (bolt.y >= this.maxBoltY) {
+                            bolt.direction = "up";
+                        };
+                        break;
+                };
+            });
+            this.timeSinceTitleBoltUpdate = 0 + (this.timeSinceTitleBoltUpdate % this.titleBoltUpdateInterval);
+        };
+        this.titleBolts.forEach((bolt) => {titleCtx.drawImage(boltImage, bolt.x, bolt.y, 120, 120)});
+    }
+};
+
+
