@@ -1,4 +1,8 @@
 //// AUDIO SYSTEM CODE FOR VOLTAIC ////
+//----------------------------------------------------
+// Contains code for the manipulation of the music tracks and sound effects in game.
+// Last modified by Joe Bevis 18/10/2021
+//----------------------------------------------------
 
 // class for quickly creating sound effect objects
 class SoundEffect {
@@ -58,7 +62,8 @@ function ChangeTrack(trackName) {
     };
 };
 
-// Randomised button sound effect
+// randomised button sound effect to play one of two sounds when a button is clicked
+var buttonSounds = [];
 buttonSounds.push(new SoundEffect("ButtonSoundA"));
 buttonSounds.push(new SoundEffect("ButtonSoundB"));
 function PlayButtonSound() {

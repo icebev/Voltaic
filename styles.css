@@ -11,6 +11,8 @@ body {
 /* styling of the game title */ 
 #gameTitle {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
     color: rgb(6, 190, 252);
     font-size: 75px;
     text-shadow: 5px 5px 5px rgb(38, 53, 58), 0px -5px 5px rgb(6, 190, 252);
@@ -48,6 +50,7 @@ body {
     margin-right: -50%;
     transform: translate(-50%, -50%);
     width: 800px;
+    height: 575px;
 }
 
 #dialogueChoicesContainer {

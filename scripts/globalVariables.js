@@ -1,4 +1,8 @@
 //// GLOBAL VARIABLE INITIALISATION FOR VOLTAIC ////
+//----------------------------------------------------
+// Contains global variables including the adventure text.
+// Last modified by Joe Bevis 18/10/2021
+//----------------------------------------------------
 
 // retrieve the adventure text from the JSON file using AJAX
 var adventureTextNodes = [];
@@ -30,19 +34,21 @@ var allCharactersRevealed = false;
 var transitionOpacity = 1;
 var disableTransferAnimations = false;
 
-// variables used by the audio system
+// variable used by the audio system to keep track of music tracks playing
 var tracksPlaying  = [];
-var buttonSounds = [];
-
-/* TRACK SET REFERENCE:
+/* 
+TRACK SET REFERENCE:
 The tracklist array contains the alphabetical IDs of all of the music track loops in the file system.
+S: Colossal Game Music Collection\8. Sci-Fi Music\Sci-Fi Music Vol. II\4 - Undiscovered
 A: Colossal Game Music Collection\5. Retro Music\Chiptunes Vol. I\3 - Dangerous Circuits
 B: Colossal Game Music Collection\5. Retro Music\Chiptunes Vol. I\4 - Digital Journey 
+C: Colossal Game Music Collection\8. Sci-Fi Music\Sci-Fi Music Vol. I\1 - Citadel
 */
 const trackNameList = 
 [ "Sa",
   "Aa", "Ab", "Ac", "Ad", 
-  "Ba", "Bb", "Bc","Bd"];
+  "Ba", "Bb", "Bc","Bd",
+  "Ca", "Cb", "Cc"];
 
 // constant variables used for referring to changing HTML elements
 const adventureTextContainerElement = document.getElementById("adventureTextContainer");

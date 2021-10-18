@@ -30,7 +30,9 @@
     
     <!-- first div is for the title and entry of the player name -->
     <div class="container" id="nameEntryContainer">
+        <p>A game by <b>Joe Bevis</b></p>
         <h1 id="gameTitle">VOLTAIC</h1>
+        
         <label for="nameInput">Who shall you be known as?</label><br>
         <input type="text" id="nameInput" value=""><br>
         <button id="startButton" onclick="NameEntrySubmit()">Start Game</button>
@@ -38,13 +40,14 @@
     </div>
 
     <canvas id="titleScreenOverlay"></canvas>
-    
-    <script src="energyBolts.js"></script>
-    <script src="backgroundManager.js"></script>
-    <script src="globalVariables.js"></script>
-    <script src="audioManager.js"></script>
-    <script src="buttonFunctions.js"></script>
-    <script src="dialogueSystem.js"></script>
-    <script src="canvasAnimation.js"></script>
+
+    <script src="scripts/spriteSystem.js"></script>
+    <script src="scripts/energyBolts.js"></script>
+    <script src="scripts/backgroundManager.js"></script>
+    <script src="scripts/globalVariables.js"></script>
+    <script src="scripts/audioManager.js"></script>
+    <script src="scripts/buttonFunctions.js"></script>
+    <script src="scripts/dialogueSystem.js"></script>
+    <script src="scripts/canvasAnimation.js"></script>
 </body>
 </html>
