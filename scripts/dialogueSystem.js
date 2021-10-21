@@ -51,7 +51,13 @@ function UpdateGameText(targetNodeId) {
     };
     // update the shown adventure text, character reveal speed, character nameplates and dialogue option buttons passing properties of the retrieved node 
     ChangeTextSpeed(currentTextNode.textSpeed);
-    ChangeAdventureText(currentTextNode.text);
+    // if there is an array of multiple texts for the same node, then one is selected at random. Otherwise the text is passed into the ChangeAdventureText function as normal
+    if (typeof currentTextNode.text != "string") {
+        let textSelector = Math.floor((Math.random() * currentTextNode.text.length))
+        ChangeAdventureText(currentTextNode.text[textSelector]);
+    } else {
+        ChangeAdventureText(currentTextNode.text);
+    };
     UpdateNamePlates(currentTextNode.speaker);
     CreateChoiceButtons(currentTextNode.dialogueChoices);
 };

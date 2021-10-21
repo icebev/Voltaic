@@ -27,6 +27,10 @@ const backgroundManager = {
     {
         name: "market",
         yNumber: 2
+    },
+    {
+        name: "darkness",
+        yNumber: 3
     }],
     draw() {
         backCtx.drawImage(this.backgrounds, this.frameWidth * this.frameX, this.frameHeight * this.frameY, this.frameWidth, this.frameHeight, 0, 0, backCanvas.width, backCanvas.height);

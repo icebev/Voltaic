@@ -1,3 +1,9 @@
+//// ANIMATED CHARACTER SPRITE SYSTEM CODE FOR VOLTAIC ////
+//----------------------------------------------------
+// Contains code for the handling of the character sprites drawn on the background canvas.
+// Last modified by Joe Bevis 21/10/2021
+//----------------------------------------------------
+
 // a generic character class for efficient sprite configuration
 class Character {
     constructor(x, y, imageSrc, spriteW, spriteH, scale, frames, interval) {
@@ -15,7 +21,7 @@ class Character {
         this.frameInterval = interval;
         this.markedForDeletion = false;
     };
-    // update and draw methods will be called every time the screen refreshes and may increment the animation frame
+    // update and draw methods will be called every time the screen refreshes as part of the animation loop - increments the animation frame at a frequency based on the frameInterval
     update(deltatime) {
         this.timeSinceLastFrame += deltatime;
         if (this.timeSinceLastFrame >= this.frameInterval) {
@@ -35,9 +41,10 @@ class Character {
 // create the player character using the character class
 const playerBatteryborn = new Character(-5, 170, "img/batteryborn.png", 180, 180, 3, 2, 800);
 
-// object that manages the NPC sprites being displayed 
+// object that manages the NPC sprite(s) being displayed 
 const encounterSpriteManager = {
     activeEncounterCharacters: [],
+    // encounters array lists all of the available encounters with their setup details
     encounters: [
     {
         name: "crusher",
@@ -55,9 +62,9 @@ const encounterSpriteManager = {
         fileName: "img/robotDog.png",
         spriteWidth: 128,
         spriteHeight: 128,
-        xPos: 1220,
-        yPos: 320,
-        scale: 3,
+        xPos: 1240,
+        yPos: 370,
+        scale: 2.5,
         frames: 2,
         interval: 300,
     },
@@ -73,9 +80,11 @@ const encounterSpriteManager = {
         interval: 1000,
     },
     ],
+    // method that can clear or update the activeEncounterCharacters array to change which sprites are being drawn on screen 
     switchEncounter(encounterNames) {
         this.activeEncounterCharacters.splice(0, this.activeEncounterCharacters.length);
         if (encounterNames) {
+            // retrieve the setup details for the encounter from the encounters array by searching the encounter array for a matching name
             encounterNames.forEach(targetName => { 
                 let targetEncounter = this.encounters.find(encounter => encounter.name === targetName);
                 if (targetEncounter) {
@@ -95,5 +104,4 @@ const encounterSpriteManager = {
     drawNPCs() {
         this.activeEncounterCharacters.forEach((character) => character.draw());
     }
-
 };
