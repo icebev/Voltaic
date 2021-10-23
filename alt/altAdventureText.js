@@ -1,4 +1,11 @@
-[
+//// ALTERNATIVE JS FILE CONTAINING THE ADVENTURE TEXT NODES ////
+//----------------------------------------------------
+// Contains a single array of the adventure text nodes to be used by the game.
+// This should only be accessed if the AJAX request for the adventureTextNodes.json file in globalVariables.js is not working.
+// Last modified by Joe Bevis 22/10/2021
+//----------------------------------------------------
+
+const adventureTextNodes = [
     {
         "nodeId": 1,
         "text": ["You have awoken at last.", "Your blue eyes slowly flicker into life.", "You sit up amongst the rubble."],

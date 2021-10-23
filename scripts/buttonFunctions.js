@@ -89,8 +89,8 @@ function RemoveFromInventory(stringToRemove) {
 // function to alter the player energy level if the dialogue choice object selected includes an energyChange
 function UpdateEnergy(dialogueChoiceSelected) {
     let deltaEnergy = dialogueChoiceSelected.energyChange;
-    // if the dialogue choice object has noEnergyAnimation on it then disable the energy trasfer animations so no energy bolts particles are generated
-    (dialogueChoiceSelected.noEnergyAnimation) ? disableTransferAnimations = true : disableTransferAnimations = false;
+    // if the dialogue choice object has noEnergyAnimation on it then disable the energy trasfer animations so that no energy bolts particles are generated
+    (dialogueChoiceSelected.noEnergyAnimation) ? energyBoltManager.disableTransferAnimations = true : energyBoltManager.disableTransferAnimations = false;
     if (Math.abs(deltaEnergy)) {
         energyLevel += deltaEnergy;
         console.log(`Energy level has been changed by ${deltaEnergy} to a new value of ${energyLevel}.`);

@@ -1,0 +1,75 @@
+VOLTAIC REFERENCES 
+22/10/2021
+
+Game design, game code and digital art assets by Joe Bevis. 
+
+SOFTWARE USED:
+CODING: Visual Studio 2019, Visual Studio Code, Node.js (live-server module)
+ASSET CREATION: Aseprite, Corel Painter Essentials 6, GIMP 2.10.28
+
+
+SOUNDTRACKS SOURCED FROM THE UNITY ASSET STORE:
+Asset title: Colossal Game Music Collection
+Author(s): The Indie Devs Nation
+Date: July 2018 (Accessed October 2021)
+URL: https://assetstore.unity.com/packages/audio/music/orchestral/colossal-game-music-collection-88190
+Usage note: A paid license is required for the legal reuse of the digital assets referenced above.  
+
+BUTTON SFX SOURCED FROM THE UNITY ASSET STORE:
+Asset title: Footstep and Foley Sounds
+Author(s): Gamemaster Audio
+Date: April 2017 (Accessed October 2021)
+URL: https://assetstore.unity.com/packages/audio/sound-fx/foley/footstep-and-foley-sounds-85360
+Usage note: A paid license is required for the legal reuse of these digital assets referenced above.  
+
+
+CODE REFERENCES:
+
+[1]
+Usage: Inspiration for the text node dialogue retrieval system. Nodes within a Javascript object (JSON) grant control and flexibility for each dialogue option. 
+Source Type: Source Code / YouTube Video
+Title: Build A Text Adventure Game With JavaScript
+Author(s): Web Dev Simplified
+Date: June 2019 (Accessed October 2021)
+URL: https://codepen.io/WebDevSimplified/pen/xoKZbd 
+URL 2: https://www.youtube.com/watch?v=R1S_NhKkvGA
+
+[2]
+Usage: Inspiration for the animated typewriter effect for the on screen text using hidden spans that have their classes changed over time. 
+Source Type: Source Code / YouTube Video
+Title: Speech text boxes in JavaScript games (web gamedev tutorial)
+Author(s): Drew Conley
+Date: December 2020 (Accessed October 2021)
+URL: https://codepen.io/punkydrewster713/pen/zYKdywP
+URL 2: https://www.youtube.com/watch?v=8i2K7uwh124&list=WL&index=50
+
+[3]
+Usage: Aided understanding of the JSON format and the ability to parse a JSON file to access data stored this way.
+Source Type: YouTube Video
+Title: JSON Crash Course
+Author(s): Traversy Media
+Date: April 2017 (Accessed October 2021)
+URL: https://www.youtube.com/watch?v=wI1CWzNtE-M
+
+[4]
+Usage: Inspiration for the energy particle generation system using a custom class for creating randomised objects, in conjunction with an array for efficient object manipulation.
+Source Type: YouTube Video
+Title: JavaScript Game Development Crash Course
+Author(s): Franks Laboratory
+Date: July 2021 (Accessed October 2021)
+URL: https://www.youtube.com/watch?v=gCa0z4B-CRo
+
+[5]
+Usage: Inspiration for the character sprite animation and management system utilising a default class that creates objects that keep track of the current frame.
+Source Type: YouTube Video
+Title: JavaScript 2D Game Tutorial
+Author(s): Franks Laboratory
+Date: November 2020 (Accessed October 2021)
+URL: https://www.youtube.com/watch?v=jl29qI62XPg
+
+
+
+
+
+
+

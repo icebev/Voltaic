@@ -44,6 +44,7 @@ ctxArray.forEach((ctx) => {
 
 // begin the game animation loop once the window has fully loaded
 window.onload = Animate(0);
+
 // the main animation loop
 function Animate(timeStamp) {
 

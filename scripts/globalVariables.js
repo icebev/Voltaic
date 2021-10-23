@@ -1,10 +1,11 @@
 //// GLOBAL VARIABLE INITIALISATION FOR VOLTAIC ////
 //----------------------------------------------------
-// Contains global variables including the adventure text.
-// Last modified by Joe Bevis 18/10/2021
+// Contains global variables to be accessed by any part of the code. This also includes the adventure text nodes.
+// Last modified by Joe Bevis 22/10/2021
 //----------------------------------------------------
 
 // retrieve the adventure text from the JSON file using AJAX
+/*
 var adventureTextNodes = [];
 const xmlhttp = new XMLHttpRequest();
 xmlhttp.onload = function() {
@@ -12,8 +13,9 @@ xmlhttp.onload = function() {
   };
 xmlhttp.open("GET", "adventureText.json", true);
 xmlhttp.send();
+*/
+// comment out the above block of code if the JSON file request is not working and the altAdventureText.js file is to be used instead
 
-// declare key global variables for use throughout the code
 var _playerName = '';
 var currentTextNode = {};
 var gameStarted = false;
@@ -32,7 +34,6 @@ var characterSpans = [];
 var characterRevealDelay = 80;
 var allCharactersRevealed = false;
 var transitionOpacity = 1;
-var disableTransferAnimations = false;
 
 // variable used by the audio system to keep track of music tracks playing
 var tracksPlaying  = [];

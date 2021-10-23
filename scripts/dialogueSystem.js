@@ -1,7 +1,8 @@
 ﻿//// DIALOGUE SYSTEM CODE FOR VOLTAIC ////
 //----------------------------------------------------
 // Contains the functions that retrieve the adventure text using a JSON node system before updating the dialogue choices, background, music, nameplates and sprites.
-// Last modified by Joe Bevis 18/10/2021
+// Please see code reference [1], [2] and [3] in REFERENCES.txt
+// Last modified by Joe Bevis 22/10/2021
 //----------------------------------------------------
 
 // function called when the game should begin after the player name has been entered or upon restart

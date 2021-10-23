@@ -1,11 +1,12 @@
 //// ANIMATED CHARACTER SPRITE SYSTEM CODE FOR VOLTAIC ////
 //----------------------------------------------------
 // Contains code for the handling of the character sprites drawn on the background canvas.
-// Last modified by Joe Bevis 21/10/2021
+// Please see code reference [5] in REFERENCES.txt
+// Last modified by Joe Bevis 22/10/2021
 //----------------------------------------------------
 
 // a generic character class for efficient sprite configuration
-class Character {
+class CharacterSprite {
     constructor(x, y, imageSrc, spriteW, spriteH, scale, frames, interval) {
         this.x = x;
         this.y = y;
@@ -38,8 +39,22 @@ class Character {
     };
 };
 
-// create the player character using the character class
-const playerBatteryborn = new Character(-5, 170, "img/batteryborn.png", 180, 180, 3, 2, 800);
+// create the animated player character using the character class
+const playerSpriteDetails = {
+    fileName: "img/batteryborn.png",
+    xPos: -5,
+    yPos: 170,
+    frameWidth: 180,
+    frameHeight: 180,
+    scale: 3,
+    frames: 2,
+    interval: 800,
+    createCharacter() {
+        return new CharacterSprite(this.xPos, this.yPos, this.fileName, this.frameWidth, this.frameHeight, this.scale, this.frames, this.interval);
+    }
+};
+// the playerBatteryborn object will be updated and drawn as part of the animation loop separately from the encounter sprites
+const playerBatteryborn = playerSpriteDetails.createCharacter();
 
 // object that manages the NPC sprite(s) being displayed 
 const encounterSpriteManager = {
@@ -84,11 +99,11 @@ const encounterSpriteManager = {
     switchEncounter(encounterNames) {
         this.activeEncounterCharacters.splice(0, this.activeEncounterCharacters.length);
         if (encounterNames) {
-            // retrieve the setup details for the encounter from the encounters array by searching the encounter array for a matching name
+            // retrieve the sprite setup details for the encounter from the encounters array by searching the encounter array for a matching name
             encounterNames.forEach(targetName => { 
                 let targetEncounter = this.encounters.find(encounter => encounter.name === targetName);
                 if (targetEncounter) {
-                    this.activeEncounterCharacters.push(new Character(targetEncounter.xPos, targetEncounter.yPos, targetEncounter.fileName, targetEncounter.spriteWidth, targetEncounter.spriteHeight, targetEncounter.scale, targetEncounter.frames, targetEncounter.interval))
+                    this.activeEncounterCharacters.push(new CharacterSprite(targetEncounter.xPos, targetEncounter.yPos, targetEncounter.fileName, targetEncounter.spriteWidth, targetEncounter.spriteHeight, targetEncounter.scale, targetEncounter.frames, targetEncounter.interval))
                     console.log(this.activeEncounterCharacters);
                 } else {
                     console.log(`Enounter ${targetName} does not exist.`);
@@ -98,6 +113,7 @@ const encounterSpriteManager = {
             return console.log(`No requested enounter.`);
         }
     }, 
+    // if there are multiple active character sprites within the activeEncounterCharacters array then each is updated and drawn with every animation loop
     updateNPCs(deltatime) {
         this.activeEncounterCharacters.forEach((character) => character.update(deltatime));
     },
