@@ -1,7 +1,9 @@
 VOLTAIC REFERENCES 
 22/10/2021
 
-Game design, game code and digital art assets by Joe Bevis. 
+Game design, game code and some digital art assets by Joe Bevis. 
+
+Player character cosmetic pixel art by Kane Holley.
 
 SOFTWARE USED:
 CODING: Visual Studio 2019, Visual Studio Code, Node.js (live-server module)
