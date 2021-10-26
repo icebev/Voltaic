@@ -110,3 +110,16 @@ function UpdateEnergy(dialogueChoiceSelected) {
         };
     };
 };
+
+// function that takes in a boolean value to either show or hide the credits container on the title screen
+function ShowCredits(toggleValue) {
+    if (toggleValue) {
+        document.getElementById("creditsContainer").style.display = "block";
+        document.getElementById("nameEntryContainer").style.visibility = "hidden";
+    } else if (!toggleValue) {
+        document.getElementById("nameEntryContainer").style.visibility = "visible";
+        document.getElementById("creditsContainer").style.display = "none";
+
+    };
+};
+

@@ -7,13 +7,12 @@
 
 // function called when the game should begin after the player name has been entered or upon restart
 function StartGame() {
-    backgroundManager.switchBackground("junkyard");
     energyLevel = 50;
-    inventory = [];
-    transitionOpacity = 1.5;
-    StartTracks("S");
-    ChangeTrack("Sa");
+    // terminator easter egg - if the player name is terminator then they get the terminator outfit in their inventory. This is checked by the animation loop
+    _playerName != "Terminator" ? inventory = [] : inventory = ["terminator"];
+    // begin the game at the first node
     UpdateGameText(1);
+
 };
 
 // main function that takes in the target node ID value to decide what should happen next
@@ -67,14 +66,14 @@ function UpdateGameText(targetNodeId) {
 function ChangeTextSpeed(speed) {
     switch (speed) {
         case "slow":
-            characterRevealDelay = 100;
+            characterRevealDelay = 95;
             break;
         case "fast":
-            characterRevealDelay = 50;
+            characterRevealDelay = 60;
             break;
         // superfast is used by the skip button to make the text rapidly appear
         case "superfast":
-            characterRevealDelay = 10;
+            characterRevealDelay = 5;
             break;    
         default:
             characterRevealDelay = 80;

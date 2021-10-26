@@ -73,7 +73,19 @@ function Animate(timeStamp) {
 
     // update and draw the player character and energy bar
     playerBatteryborn.update(deltatime);
-    playerBatteryborn.draw();
+    // ensure that if the terminator character cosmetics are to be drawn instead then the default player sprite is not drawn
+    if (!inventory.includes("terminator")) {
+        playerBatteryborn.draw();
+    };
+    
+    cosmeticContainer.forEach((cosmeticObject) => {
+        cosmeticObject.spriteObject.update(deltatime);
+        if (inventory.includes(cosmeticObject.name)) {
+            cosmeticObject.spriteObject.frameY = playerBatteryborn.frameY;
+            cosmeticObject.spriteObject.draw();
+        };
+    });
+    
     DrawEnergyBar(deltatime);
     
     // update and draw the encounter NPC sprites
@@ -161,6 +173,3 @@ function CanvasTransitionUpdate(deltatime) {
         frontCanvas.style.visibility = "Hidden";
     };
 };
-
-
-

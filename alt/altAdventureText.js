@@ -11,6 +11,10 @@ const adventureTextNodes = [
         "text": ["You have awoken at last.", "Your blue eyes slowly flicker into life.", "You sit up amongst the rubble."],
         "textSpeed": "fast",
         "encounterChange": 1,
+        "transition": 1.5,
+        "changeTrackSet": "S",
+        "changeTrack": "Sa",
+        "changeBackground": "junkyard",
         "encounters": []
     },
     {
@@ -244,6 +248,7 @@ const adventureTextNodes = [
         "nodeId": 27,
         "text": ["After walking for some time, you find yourself in a field.", "Your surroundings open up into a field."],
         "transition": 1.5,
+        "encounterChange": 1,
         "changeTrackSet": "B",
         "changeTrack": "Ba",
         "changeBackground": "field"
@@ -279,14 +284,12 @@ const adventureTextNodes = [
                 "text": "I'll transfer it some of my energy!",
                 "energyChange": -30,
                 "energyLevelRequired": 40,
-                "inventoryAdd": ["robotDog"],
                 "nextText": 34
             },
             {
                 "text": "I'll feed it my battery.",
                 "inventoryRequired": ["battery"],
                 "inventoryRemove": ["battery"],
-                "inventoryAdd": ["robotDog"],
                 "nextText": 35
             },
             {
@@ -318,13 +321,38 @@ const adventureTextNodes = [
     },
     {
         "nodeId": 37,
-        "text": "WOOF WOOF!",
-        "speaker": "Lyza"
+        "text": "WOOF! WOOF!",
+        "speaker": "Lyza",
+        "skipToNode": 44
+    },  
+    {
+        "nodeId": 44,
+        "text": "Will you let the dog follow you?",
+        "dialogueChoices": [
+            {
+                "text": "Yes.",
+                "inventoryAdd" : ["lyza"],
+                "nextText": 38
+            },
+            {
+                "text": "No.",
+                "nextText": 45
+            }
+        ]
     },
+    {
+        "nodeId": 45,
+        "text": "See you around, doggo.",
+        "speaker": "player",
+        "skipToNode": 42
+    }, 
     {
         "nodeId": 38,
         "text": ["Aww! Come here little doggie, we'll get you to safety.", "Hey now, little dog! Come with me."],
         "speaker": "player",
+        "transition": 0.5,
+        "encounterChange" : 1,
+        "encounters": [],
         "skipToNode": 42
     },
     {
@@ -350,10 +378,10 @@ const adventureTextNodes = [
     {
         "nodeId": 42,
         "text": ["You continue walking along the winding road.", "Your journey continues."],
-        "skipToNode": 60,
         "transition": 0.5,
         "encounterChange" : 1,
-        "encounters": []
+        "encounters": [],
+        "skipToNode": 60
     },
     {
         "nodeId": 43,
@@ -368,14 +396,14 @@ const adventureTextNodes = [
                 "text": "I'll transfer it some of my own energy.",
                 "energyChange": -30,
                 "energyLevelRequired": 40,
-                "inventoryAdd": ["robotDog"],
+                "inventoryAdd": ["lyza"],
                 "nextText": 34
             },
             {
                 "text": "I'll feed it my battery.",
                 "inventoryRequired": ["battery"],
                 "inventoryRemove": ["battery"],
-                "inventoryAdd": ["robotDog"],
+                "inventoryAdd": ["lyza"],
                 "nextText": 35
             },
             {
@@ -464,22 +492,25 @@ const adventureTextNodes = [
         "speaker": "Vendor",
         "dialogueChoices": [
             {
-                "text": "The tricorn hat.",
+                "text": "The tricorn hat. [-10]",
                 "energyChange": -10,
+                "energyLevelRequired": 15,
                 "inventoryAdd": ["tricorn"],
                 "noEnergyAnimation": 1,
                 "nextText": 69
             },
             {
-                "text": "The viking helmet.",
+                "text": "The viking helmet. [-10]",
                 "energyChange": -10,
+                "energyLevelRequired": 15,
                 "inventoryAdd": ["viking"],
                 "noEnergyAnimation": 1,
                 "nextText": 69
             },
             {
-                "text": "The top hat.",
+                "text": "The top hat. [-10]",
                 "energyChange": -10,
+                "energyLevelRequired": 15,
                 "inventoryAdd": ["tophat"],
                 "noEnergyAnimation": 1,
                 "nextText": 69
@@ -688,8 +719,9 @@ const adventureTextNodes = [
                 "nextText": 85
             },
             {
-                "text": "A price?! I'LL ZAP HIM!",
+                "text": "A price?! I'LL ZAP HIM! [-30]",
                 "energyChange": -30, 
+                "energyLevelRequired": 35,
                 "nextText": 350
             },
             {
@@ -743,7 +775,7 @@ const adventureTextNodes = [
                 "nextText": 106
             },
             {
-                "text": "I'll offer some energy. [20]",
+                "text": "I'll offer some energy. [-20]",
                 "energyLevelRequired": 25,
                 "nextText": 130
             },
@@ -784,8 +816,8 @@ const adventureTextNodes = [
         "dialogueChoices": [
             {
                 "text": "I'll return the dog.",
-                "inventoryRequired": ["robotDog"],
-                "inventoryRemove": ["robotDog"],
+                "inventoryRequired": ["lyza"],
+                "inventoryRemove": ["lyza"],
                 "nextText": 125
             },
             {
@@ -918,11 +950,12 @@ const adventureTextNodes = [
         "encounterChange": 1,
         "transition": 1,
         "changeBackground": "darkness",
+        "changeTrackSet": "C",
         "changeTrack": "Cc"
     },
     {
         "nodeId": 152,
-        "text": "The road ahead is long. Surviving will require energy.",
+        "text": ["The road ahead is long. Surviving will require energy.", "The journey will be long and arduous. Energy will be required."],
         "dialogueChoices": [
             {
                 "text": "I'll find the refuge using the location.",
@@ -933,10 +966,18 @@ const adventureTextNodes = [
             },
             {
                 "text": "Lyza will be my guide dog.",
-                "inventoryRequired":["robotDog"],
+                "inventoryRequired":["lyza"],
                 "noEnergyAnimation": 1,
                 "energyChange": -20,
-                "nextText": 154
+                "nextText": 159
+            },
+            {
+                "text": "I'll eat my battery now.",
+                "inventoryRequired":["battery"],
+                "inventoryRemove":["battery"],
+                "noEnergyAnimation": 1,
+                "energyChange": 25,
+                "nextText": 158
             },
             {
                 "text": "I'll keep on going.",
@@ -964,11 +1005,11 @@ const adventureTextNodes = [
     },
     {
         "nodeId": 155,
-        "text": "You've found santuary at last with others of your kind."
+        "text": ["You've found santuary at last with others of your kind.", "You've found a new home.", "This place looks perfect for you."]
     },
     {
         "nodeId": 156,
-        "text": "Welcome! I'm Lee-Poe. We are all the same here. We'll look after you.",
+        "text": ["Welcome _playerName ! I'm Lee-Poe. We are all the same here. We'll look after you.", "Hello, _playerName . I've been expecting you.", "_playerName , these are the droids you are looking for."],
         "speaker": "Lee-Poe",
         "dialogueChoices": [
             {
@@ -981,9 +1022,19 @@ const adventureTextNodes = [
     },
     {
         "nodeId": 157,
-        "text": "Hooray!",
+        "text": ["Hooray!", "Let's goooo!", "I did it!"],
         "speaker": "player",
         "skipToNode": 403
+    },
+    {
+        "nodeId": 158,
+        "text": "You consume your battery in preparation for the journey. It's delicious!",
+        "skipToNode": 152
+    },
+    {
+        "nodeId": 159,
+        "text": "Lyza seems to know the way!",
+        "skipToNode": 154
     },
     {
         "nodeId": 350,
@@ -1059,7 +1110,7 @@ const adventureTextNodes = [
     {
         "nodeId": 404,
         "transition": 0.5,
-        "text": "You are unable to continue as the last dregs of energy leave you. Restart?",
+        "text": ["You are unable to continue as the last dregs of energy leave you. Restart?", "The blue light in your eyes fades away. Restart?", "With no energy remaining, you cannot continue. Restart?"],
         "dialogueChoices": [
             {
                 "text": "Yes",

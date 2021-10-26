@@ -5,7 +5,6 @@
 //----------------------------------------------------
 
 // retrieve the adventure text from the JSON file using AJAX
-/*
 var adventureTextNodes = [];
 const xmlhttp = new XMLHttpRequest();
 xmlhttp.onload = function() {
@@ -13,7 +12,6 @@ xmlhttp.onload = function() {
   };
 xmlhttp.open("GET", "adventureText.json", true);
 xmlhttp.send();
-*/
 // comment out the above block of code if the JSON file request is not working and the altAdventureText.js file is to be used instead
 
 var _playerName = '';

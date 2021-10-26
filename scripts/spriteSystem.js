@@ -2,7 +2,7 @@
 //----------------------------------------------------
 // Contains code for the handling of the character sprites drawn on the background canvas.
 // Please see code reference [5] in REFERENCES.txt
-// Last modified by Joe Bevis 22/10/2021
+// Last modified by Joe Bevis 24/10/2021
 //----------------------------------------------------
 
 // a generic character class for efficient sprite configuration
@@ -53,6 +53,25 @@ const playerSpriteDetails = {
         return new CharacterSprite(this.xPos, this.yPos, this.fileName, this.frameWidth, this.frameHeight, this.scale, this.frames, this.interval);
     }
 };
+
+// list of the in game cosmetic items in an array, plus the terminator outfit for the secret easter egg
+const accessoriesList = ["terminator", "battery", "viking", "tophat", "tricorn", "lyza"];
+
+// for efficient construction of the cosmetic items
+class CosmeticItem {
+    constructor(accessoryName) {
+        this.name = accessoryName;
+        this.fileName = "img/" + accessoryName + ".png";
+        this.spriteObject = new CharacterSprite(playerSpriteDetails.xPos, playerSpriteDetails.yPos, this.fileName, playerSpriteDetails.frameWidth, playerSpriteDetails.frameHeight, playerSpriteDetails.scale, playerSpriteDetails.frames, playerSpriteDetails.interval);
+    }
+};
+
+var cosmeticContainer = [];
+
+accessoriesList.forEach((accessory) => {
+    cosmeticContainer.push(new CosmeticItem(accessory))
+});
+
 // the playerBatteryborn object will be updated and drawn as part of the animation loop separately from the encounter sprites
 const playerBatteryborn = playerSpriteDetails.createCharacter();
 

@@ -30,7 +30,7 @@
     
     <!-- first div is for the title and entry of the player name -->
     <div class="container" id="nameEntryContainer">
-        <p>A game by <b>Joe Bevis</b></p>
+        <button class="genericButton" onclick="ShowCredits(true)">Credits</button>
         <h1 id="gameTitle">VOLTAIC</h1>
         
         <label for="nameInput">Who shall you be known as?</label><br>
@@ -38,11 +38,23 @@
         <button id="startButton" onclick="NameEntrySubmit()">Start Game</button>
         <p id="nameWarning"></p>
     </div>
+    <div class="container" id="creditsContainer">
+        <button class="genericButton" onclick="ShowCredits(false)">Back</button>
+        <h1 id="gameTitle">VOLTAIC</h1>
+        <br>
+        <p>A game by <b>Joe Bevis</b></p>
+        <p>Cosmetic item art by <b>Kane Holley</b></p>
+        <p> Audio sourced from the <b>Unity Asset Store</b></bUnity></p>
+        <br>
+        <p><i>v1.2 &nbsp;&nbsp; Oct 2021</i></p>
+    </div>
+
 
     <canvas id="titleScreenOverlay"></canvas>
 
     <!-- Uncomment the line below if the AJAX JSON request is not working. -->
-    <script src="alt/altAdventureText.js"></script>
+    <!-- <script src="alt/altAdventureText.js"></script> -->
+    
     <script src="scripts/spriteSystem.js"></script>
     <script src="scripts/energyBolts.js"></script>
     <script src="scripts/backgroundManager.js"></script>
@@ -51,5 +63,6 @@
     <script src="scripts/buttonFunctions.js"></script>
     <script src="scripts/dialogueSystem.js"></script>
     <script src="scripts/canvasAnimation.js"></script>
+    <script src="scripts/debugKeys.js"></script>
 </body>
 </html>
