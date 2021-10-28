@@ -1,6 +1,14 @@
-﻿<!DOCTYPE html>
+﻿<!-- 
+HTML FILE FOR VOLTAIC
+====================================================
+Contains the HTML elements and sets out the basic DOM structure that is manipulated by other scripts.
+Last modified by Joe Bevis 28/10/2021
+====================================================
+-->
+<!DOCTYPE html>
 <html>
 <head>
+    <!-- the head includes the tab title, CSS reference and favicon-->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Voltaic</title>
@@ -8,37 +16,41 @@
     <link href="styles.css" rel="stylesheet" />
 </head>
 <body>
-    <!-- background canvas before other interactable elements to not block them-->
+    <!-- background canvas comes before other elements to not obscure them-->
     <canvas id="backCanvas"></canvas>
 
-    <!-- div that contains the adventure text-->
+    <!-- div elements are used as UI container boxes and share a class to appear similar once CSS is applied. The scripts can insert text inside them -->
     <div class="container" id="batteryBox"></div>
     <div class="container" id="adventureTextContainer"></div>
     <div class="container namePlate" id="namePlateLeft"></div>
     <div class="container namePlate" id="namePlateRight"></div>
-    <!-- div that contains the choice option buttons -->
+
+    <!-- vfx canvas is layered on top of the UI elements listed above however does not obscure the dialogue choices -->
     <canvas id="vfxCanvas"></canvas>
 
+    <!-- dialogue container (div) box also contains continue and skip button elements that should remain there throughout the game -->
     <div class="container"  id="dialogueChoicesContainer">
         <button id="continueButton" class="genericButton centralButton">Continue</button>
         <button id="skipButton" class="genericButton centralButton" onclick="ChangeTextSpeed('superfast')">Skip</button>
+        <!-- the dialogueChoices div element has buttons created inside it, arranged in a grid using CSS -->
         <div id="dialogueChoices">
         </div>
     </div>
     
+    <!-- the front canvas allows the transition effect without obscuring the title screen -->
     <canvas id="frontCanvas"></canvas>
     
-    <!-- first div is for the title and entry of the player name -->
+    <!-- the name entry container and credits container divs contain the elements that make up the title and credits screens -->
     <div class="container" id="nameEntryContainer">
         <button class="genericButton" onclick="ShowCredits(true)">Credits</button>
         <h1 id="gameTitle">VOLTAIC</h1>
-        
         <label for="nameInput">Who shall you be known as?</label><br>
         <input type="text" id="nameInput" value=""><br>
         <button id="startButton" onclick="NameEntrySubmit()">Start Game</button>
         <p id="nameWarning"></p>
     </div>
     <div class="container" id="creditsContainer">
+        <!-- the ShowCredits function shows or hides the credit and title divs depending on the bool value recieved -->
         <button class="genericButton" onclick="ShowCredits(false)">Back</button>
         <h1 id="gameTitle">VOLTAIC</h1>
         <br>
@@ -49,12 +61,18 @@
         <p><i>v1.2 &nbsp;&nbsp; Oct 2021</i></p>
     </div>
 
-
+    <!-- titleScreenOverlay canvas has the floating energy bolt logos rendered on it -->
     <canvas id="titleScreenOverlay"></canvas>
 
+    <!--
+    SCRIPT REFERENCES
+    ====================================================
+    The remainder of the code references the JavaScript files that the game runs on. 
+    Please see the individual file for more detail on it's function.
+    -->
+
     <!-- Uncomment the line below if the AJAX JSON request is not working. -->
-    <!-- <script src="alt/altAdventureText.js"></script> -->
-    
+    <!-- <script src="alt/altAdventureText.js"></script> -->    
     <script src="scripts/spriteSystem.js"></script>
     <script src="scripts/energyBolts.js"></script>
     <script src="scripts/backgroundManager.js"></script>

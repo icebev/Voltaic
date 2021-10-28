@@ -1,7 +1,7 @@
 //// GLOBAL VARIABLE INITIALISATION FOR VOLTAIC ////
 //----------------------------------------------------
 // Contains global variables to be accessed by any part of the code. This also includes the adventure text nodes.
-// Last modified by Joe Bevis 22/10/2021
+// Last modified by Joe Bevis 28/10/2021
 //----------------------------------------------------
 
 // retrieve the adventure text from the JSON file using AJAX
@@ -42,12 +42,14 @@ S: Colossal Game Music Collection\8. Sci-Fi Music\Sci-Fi Music Vol. II\4 - Undis
 A: Colossal Game Music Collection\5. Retro Music\Chiptunes Vol. I\3 - Dangerous Circuits
 B: Colossal Game Music Collection\5. Retro Music\Chiptunes Vol. I\4 - Digital Journey 
 C: Colossal Game Music Collection\8. Sci-Fi Music\Sci-Fi Music Vol. I\1 - Citadel
+D: Colossal Game Music Collection\4. Emotional Music\Emotional Music Vol. I\2 - Before the End
 */
 const trackNameList = 
 [ "Sa",
   "Aa", "Ab", "Ac", "Ad", 
   "Ba", "Bb", "Bc","Bd",
-  "Ca", "Cb", "Cc"];
+  "Ca", "Cb", "Cc",
+  "Da"];
 
 // constant variables used for referring to changing HTML elements
 const adventureTextContainerElement = document.getElementById("adventureTextContainer");

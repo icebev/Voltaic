@@ -1,6 +1,8 @@
 Voltaic by Joe Bevis
 =====
 Submitted for MED4141-A-S1-2021/2 module assessment.
+
+28th October 2021
 -----
 A dialogue based text adventure game. 
 
@@ -16,9 +18,9 @@ A dialogue based text adventure game.
 7. The game will begin on a new Chrome tab using a live server
 
 ***Contingency Plan:***
-If the setup steps above do not work, and there is no text being displayed:
+*If the setup steps above do not work, and there is no text being displayed:*
 
-1. Open index.html and uncomment the indicated line (44) that will use the alternative scripted version of the text
+1. Open index.html and uncomment the indicated line (75) that will use the alternative scripted version of the text
 2. Open globalVariables.js in the scripts folder and comment out the AJAX request code block at the top  
 3. Save and close both files
 4. Attempt to run the game on Google Chrome or the Opera GX browser by opening the index.html file

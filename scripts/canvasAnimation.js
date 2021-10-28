@@ -1,7 +1,8 @@
 //// CANVAS ANIMATION CODE FOR VOLTAIC ////
 //----------------------------------------------------
 // Contains the main animation loop and canvas related functions.
-// Last modified by Joe Bevis 18/10/2021
+// Please see code reference [7] in REFERENCES.txt.
+// Last modified by Joe Bevis 28/10/2021
 //----------------------------------------------------
 
 // a 16:9 aspect ratio for the canvas to fit modern monitors
@@ -11,6 +12,7 @@ const canvasDimensions = {
 };
 
 /* 
+CANVAS DESCRIPTIONS: 
 backCanvas: For rendering the background image and character sprites.
 vfxCanvas: For rendering the energy bar and some of the energy transfer VFX on top of the adventure text and battery box HTML elements.
 frontCanvas: On top of all HTML elements except the title screen container element for the fade from black transition effect to function.
@@ -42,10 +44,10 @@ ctxArray.forEach((ctx) => {
     ctx.imageSmoothingEnabled = false;
 });
 
-// begin the game animation loop once the window has fully loaded
+// begin the game animation loop (below) once the window has fully loaded
 window.onload = Animate(0);
 
-// the main animation loop
+// the main animation loop has a timestamp parameter to keep track of the time between frame requests
 function Animate(timeStamp) {
 
     let deltatime = timeStamp - lastFrameTime;
@@ -77,7 +79,9 @@ function Animate(timeStamp) {
     if (!inventory.includes("terminator")) {
         playerBatteryborn.draw();
     };
+    DrawEnergyBar(deltatime);
     
+    // iterate through the cosmetic items array to draw the items that are in the player inventory
     cosmeticContainer.forEach((cosmeticObject) => {
         cosmeticObject.spriteObject.update(deltatime);
         if (inventory.includes(cosmeticObject.name)) {
@@ -85,8 +89,6 @@ function Animate(timeStamp) {
             cosmeticObject.spriteObject.draw();
         };
     });
-    
-    DrawEnergyBar(deltatime);
     
     // update and draw the encounter NPC sprites
     encounterSpriteManager.updateNPCs(deltatime);
@@ -101,6 +103,7 @@ function Animate(timeStamp) {
 // drawing an energy bar on the canvas with the appearance of a battery
 function DrawEnergyBar(deltatime) {
     timeSinceCorrection += deltatime;
+    // random time between changing the shown energy level to be closer to the actual energy level for the animated effect
     let correctionInterval = 500 * Math.random();
     let centerLineX = vfxCanvas.width / 2;
     let batteryWidth = maxEnergyLevel * 2;
@@ -136,6 +139,7 @@ function DrawEnergyBar(deltatime) {
     vfxCtx.rect(batteryX + batteryWidth , batteryY + batteryHeight / 2 - 10, 6, 20);
     vfxCtx.lineWidth = "6";
     vfxCtx.stroke();
+    // using separate variables for the shown energy level and actual energy level the battery can be animated by slowly closing the gap between the two values
     if (timeSinceCorrection >= correctionInterval) {
         timeSinceCorrection = 0 + (timeSinceCorrection % correctionInterval);
         let energyDifference = energyLevel - shownEnergyLevel;
@@ -147,7 +151,7 @@ function DrawEnergyBar(deltatime) {
     };
 };
 
-// function that switches the sprite animation Y frame to reflect current mood
+// function that switches the player and therefore cosmetic item sprite animation Y frame to reflect current mood
 function ChangePlayerMood(mood) {
     switch (mood) {
         case 'sad':
@@ -162,12 +166,13 @@ function ChangePlayerMood(mood) {
     };
 };
 
-// if the transistion opacity value has been set it will slowly return to fully transparent as the function is called 
+// if the transistion opacity value has been set it will slowly return to fully transparent as the function is called as part of the animation loop
 function CanvasTransitionUpdate(deltatime) {
     if (transitionOpacity >= 0) {
         frontCanvas.style.visibility = "Visible";
         frontCtx.fillStyle = "rgb(0, 0, 0," + transitionOpacity + ")";
         frontCtx.fillRect(0, 0, frontCanvas.width, frontCanvas.height);
+        // deltatime is used in the multiplication to ensure that all computers have the same transition times regardless of framerate
         transitionOpacity -= (deltatime * 0.0005);
     } else {
         frontCanvas.style.visibility = "Hidden";

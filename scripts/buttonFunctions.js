@@ -2,7 +2,7 @@
 //----------------------------------------------------
 // Contains the functions that get called when the related HTML elements are clicked. 
 // Also contains the sequential functions that alter the player's inventory and energy as a result of a selected dialogue choice.
-// Last modified by Joe Bevis 18/10/2021
+// Last modified by Joe Bevis 28/10/2021
 //----------------------------------------------------
 
 // function that checks the player name entered when the start button is clicked
@@ -119,7 +119,6 @@ function ShowCredits(toggleValue) {
     } else if (!toggleValue) {
         document.getElementById("nameEntryContainer").style.visibility = "visible";
         document.getElementById("creditsContainer").style.display = "none";
-
     };
 };
 

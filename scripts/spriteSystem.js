@@ -2,10 +2,10 @@
 //----------------------------------------------------
 // Contains code for the handling of the character sprites drawn on the background canvas.
 // Please see code reference [5] in REFERENCES.txt
-// Last modified by Joe Bevis 24/10/2021
+// Last modified by Joe Bevis 28/10/2021
 //----------------------------------------------------
 
-// a generic character class for efficient sprite configuration
+// a generic character class for efficient aminated sprite configuration
 class CharacterSprite {
     constructor(x, y, imageSrc, spriteW, spriteH, scale, frames, interval) {
         this.x = x;
@@ -39,7 +39,7 @@ class CharacterSprite {
     };
 };
 
-// create the animated player character using the character class
+// The details of the player sprite are stored in the object below with a method to create the sprite object using the CharacterSprite class
 const playerSpriteDetails = {
     fileName: "img/batteryborn.png",
     xPos: -5,
@@ -54,20 +54,21 @@ const playerSpriteDetails = {
     }
 };
 
-// list of the in game cosmetic items in an array, plus the terminator outfit for the secret easter egg
+// list of the in game cosmetic items in an array, plus the terminator outfit for the secret easter egg at the start as this would be drawn first on the canvas
 const accessoriesList = ["terminator", "battery", "viking", "tophat", "tricorn", "lyza"];
 
-// for efficient construction of the cosmetic items
+// for efficient construction of the cosmetic items using the names from the accessoriesList array
 class CosmeticItem {
     constructor(accessoryName) {
         this.name = accessoryName;
         this.fileName = "img/" + accessoryName + ".png";
+        // the cosmetic item sprite sheets should have the same dimensions and positions as the player character sprite sheet to fit on top
         this.spriteObject = new CharacterSprite(playerSpriteDetails.xPos, playerSpriteDetails.yPos, this.fileName, playerSpriteDetails.frameWidth, playerSpriteDetails.frameHeight, playerSpriteDetails.scale, playerSpriteDetails.frames, playerSpriteDetails.interval);
     }
 };
 
+// the cosmetic container array stores all of the CosmeticItem objects so that they can be iterated through and drawn as required
 var cosmeticContainer = [];
-
 accessoriesList.forEach((accessory) => {
     cosmeticContainer.push(new CosmeticItem(accessory))
 });
@@ -116,6 +117,7 @@ const encounterSpriteManager = {
     ],
     // method that can clear or update the activeEncounterCharacters array to change which sprites are being drawn on screen 
     switchEncounter(encounterNames) {
+        // first remove the actively drawn encounter character sprites
         this.activeEncounterCharacters.splice(0, this.activeEncounterCharacters.length);
         if (encounterNames) {
             // retrieve the sprite setup details for the encounter from the encounters array by searching the encounter array for a matching name

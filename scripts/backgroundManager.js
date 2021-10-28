@@ -1,7 +1,7 @@
 //// BACKGROUND MANAGEMENT CODE FOR VOLTAIC ////
 //----------------------------------------------------
 // Contains code for the manipulation of the game background drawn on the background canvas.
-// Last modified by Joe Bevis 18/10/2021
+// Last modified by Joe Bevis 28/10/2021
 //----------------------------------------------------
 
 // create the image consisting of a grid of low resolution illustrations and set the source

@@ -2,7 +2,7 @@
 //----------------------------------------------------
 // Contains code for the energy transfer animation particle system and for rendering the title screen floating bolts.
 // Please see code reference [4] in REFERENCES.txt
-// Last modified by Joe Bevis 22/10/2021
+// Last modified by Joe Bevis 28/10/2021
 //----------------------------------------------------
 
 // create a standard bolt image

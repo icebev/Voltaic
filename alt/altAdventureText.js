@@ -2,7 +2,7 @@
 //----------------------------------------------------
 // Contains a single array of the adventure text nodes to be used by the game.
 // This should only be accessed if the AJAX request for the adventureTextNodes.json file in globalVariables.js is not working.
-// Last modified by Joe Bevis 22/10/2021
+// Last modified by Joe Bevis 28/10/2021
 //----------------------------------------------------
 
 const adventureTextNodes = [
@@ -158,6 +158,7 @@ const adventureTextNodes = [
         "nodeId": 17,
         "text": ["CR-NCHR ERROR CODE 404. CANNOT COMPUTE. REBOOTING SYSTEMS.", "CR-NCHR ERROR CODE 400. REQUEST DENIED. REBOOTING SYSTEMS."],
         "speaker": "CR-NCHR",
+        "textSpeed": "slow",
         "skipToNode": 14
     },
     {
@@ -168,6 +169,7 @@ const adventureTextNodes = [
     {
         "nodeId": 19,
         "text": "CR-NCHR OVERRIDE ACCEPTED. DISENGAGING TARGET.",
+        "textSpeed": "slow",
         "speaker": "CR-NCHR"
     },
     {
@@ -189,6 +191,7 @@ const adventureTextNodes = [
     {
         "nodeId": 22,
         "text": "CR-NCHR CORE INTEGRITY FAILURE. RE...boot..pzzzzzt...",
+        "textSpeed": "slow",
         "speaker": "CR-NCHR"
     },
     {
@@ -517,7 +520,7 @@ const adventureTextNodes = [
             },
             {
                 "text": "I'm just browsing.",
-                "nextText": 80
+                "nextText": 73
             }
         ]
     },
@@ -950,8 +953,8 @@ const adventureTextNodes = [
         "encounterChange": 1,
         "transition": 1,
         "changeBackground": "darkness",
-        "changeTrackSet": "C",
-        "changeTrack": "Cc"
+        "changeTrackSet": "D",
+        "changeTrack": "Da"
     },
     {
         "nodeId": 152,
@@ -1083,15 +1086,29 @@ const adventureTextNodes = [
     },
     {
         "nodeId": 355,
-        "text": "COME AT ME!",
+        "speaker": "player",
+        "textSpeed": "slow",
+        "text": ["COME AT ME!", "Bring it on."],
         "dialogueChoices": [
             {
                 "text": "...",
                 "energyChange": -100,
                 "noEnergyAnimation": 1,
                 "nextText": 404
+            },
+            {
+                "text": "Hasta la vista, baby!",
+                "inventoryRequired": ["terminator"],
+                "energyChange": 100,
+                "noEnergyAnimation": 1,
+                "nextText": 356
             }
         ]
+    },
+    {
+        "nodeId": 356,
+        "text": "You survive and drain Pete's energy supply!",
+        "skipToNode": 150
     },
     {
         "nodeId": 403,

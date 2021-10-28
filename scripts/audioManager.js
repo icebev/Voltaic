@@ -1,7 +1,7 @@
 //// AUDIO SYSTEM CODE FOR VOLTAIC ////
 //----------------------------------------------------
 // Contains code for the manipulation of the music tracks and sound effects in game.
-// Last modified by Joe Bevis 18/10/2021
+// Last modified by Joe Bevis 28/10/2021
 //----------------------------------------------------
 
 // class for quickly creating sound effect objects
@@ -9,7 +9,7 @@ class SoundEffect {
     constructor(fileName) {
         this.sound = new Audio();
         this.sound.src = "aud/" + fileName + ".wav";
-        this.sound.volume = 0.03;
+        this.sound.volume = 0.035;
         console.log(`Created SFX ${fileName}`);
     }
 };
@@ -29,7 +29,7 @@ class AudioTrack {
     }
     switchToTrack() {
         tracksPlaying.forEach((track) => {track.sound.volume = 0})
-        this.sound.volume = 0.02;
+        this.sound.volume = 0.025;
     }
 };
 

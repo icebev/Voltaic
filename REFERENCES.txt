@@ -1,5 +1,5 @@
 VOLTAIC REFERENCES 
-22/10/2021
+28/10/2021
 
 Game design, game code and some digital art assets by Joe Bevis. 
 
@@ -69,6 +69,21 @@ Author(s): Franks Laboratory
 Date: November 2020 (Accessed October 2021)
 URL: https://www.youtube.com/watch?v=jl29qI62XPg
 
+[6]
+Usage: Techniques used for centering elements using CSS.
+Source Type: Website
+Title: Centering Things
+Author(s): Bert Bos
+Date: May 2001 (Accessed October 2021)
+URL: https://www.w3.org/Style/Examples/007/center.en.html
+
+[7]
+Usage: Understanding how to make pixel art appear sharper by disabling image smoothing.
+Source Type: Website
+Title: Draw Images and Sprite Animations
+Author(s): Spicy Yoghurt
+Date: May 2020 (Accessed October 2021)
+URL: https://spicyyoghurt.com/tutorials/html5-javascript-game-development/images-and-sprite-animations
 
 
 

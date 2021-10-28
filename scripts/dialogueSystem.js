@@ -2,17 +2,17 @@
 //----------------------------------------------------
 // Contains the functions that retrieve the adventure text using a JSON node system before updating the dialogue choices, background, music, nameplates and sprites.
 // Please see code reference [1], [2] and [3] in REFERENCES.txt
-// Last modified by Joe Bevis 22/10/2021
+// Last modified by Joe Bevis 28/10/2021
 //----------------------------------------------------
 
 // function called when the game should begin after the player name has been entered or upon restart
 function StartGame() {
+    // start with 50 energy
     energyLevel = 50;
-    // terminator easter egg - if the player name is terminator then they get the terminator outfit in their inventory. This is checked by the animation loop
+    // terminator easter egg - if the player name is Terminator then they get the terminator outfit in their inventory. This is checked by the animation loop
     _playerName != "Terminator" ? inventory = [] : inventory = ["terminator"];
     // begin the game at the first node
     UpdateGameText(1);
-
 };
 
 // main function that takes in the target node ID value to decide what should happen next
@@ -66,17 +66,17 @@ function UpdateGameText(targetNodeId) {
 function ChangeTextSpeed(speed) {
     switch (speed) {
         case "slow":
-            characterRevealDelay = 95;
+            characterRevealDelay = 80;
             break;
         case "fast":
-            characterRevealDelay = 60;
+            characterRevealDelay = 20;
             break;
         // superfast is used by the skip button to make the text rapidly appear
         case "superfast":
             characterRevealDelay = 5;
             break;    
         default:
-            characterRevealDelay = 80;
+            characterRevealDelay = 35;
             break;
     };
 };
@@ -201,7 +201,7 @@ function RevealSpanCharacters(revealList, deltatime) {
         // remove the hidden CSS class and add the revealed class to make the span visible
         spanToReveal.classList.remove('hidden');
         spanToReveal.classList.add('revealed');
-        timeSinceLastCharacter = 0 + (timeSinceLastCharacter % 100);
+        timeSinceLastCharacter = 0 + (timeSinceLastCharacter % characterRevealDelay);
     // hide the skip button and display the choice buttons if all the text is now visible   
     } else if (!revealList.length && !allCharactersRevealed) {
         skipButtonElement.style.visibility = "Hidden";
@@ -217,6 +217,7 @@ function DisplayChoiceButtons(textNode) {
         continueButtonElement.style.visibility = "Visible";
         continueButtonElement.onclick = function() {SelectContinue(textNode)};
     } else {
+        // as the choice buttons inherit the visibility from the div they are inside, the dialogueChoicesElement div is the only thing that needs to be changed
         dialogueChoicesElement.style.visibility = "Visible";
     }; 
 };

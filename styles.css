@@ -1,4 +1,13 @@
-/* body used to color the background and set the font. */
+/*
+CSS STYLES FILE FOR VOLTAIC
+====================================================
+Contains the styling and sets the positioning for the in visible HTML elements in game.
+Please see code reference [6] in REFERENCES.txt
+Last modified by Joe Bevis 28/10/2021
+====================================================
+*/
+
+/* body used to color the background, set up the page dimensions and set the font. */
 body {
     background: rgb(83, 101, 107);
     font-family: "Lucida Console", "Courier New", monospace;
@@ -8,7 +17,7 @@ body {
     height: 100vh;
 }
 
-/* styling of the game title */ 
+/* unique styling of the game title - VOLTAIC */ 
 #gameTitle {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     -webkit-text-stroke-width: 2px;
@@ -18,7 +27,32 @@ body {
     text-shadow: 5px 5px 5px rgb(38, 53, 58), 0px -5px 5px rgb(6, 190, 252);
 }
 
-/* styling for containers that should look similar */
+/* unique styling for the start game button on the title screen */
+#startButton {
+    height: 100px;
+    width: 300px;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 30px;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, rgb(6, 190, 252), white)
+}
+
+/* appearance of the text entry field on the game title screen*/
+input[type=text] {
+    height: 10%;
+    width: 70%;
+    padding: 12px 20px;
+    margin: 20px 0;
+    box-sizing: border-box;
+    border: 2px solid rgb(38, 53, 58);
+    border-radius: 4px;
+    font-weight: 700;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 30px;
+    text-align: center;
+}
+
+/* general styling and central positioning for containers that should look similar */
 .container {
     position: absolute;
     background: rgba(98, 148, 182, 0.726);
@@ -35,16 +69,12 @@ body {
     transform: translate(-50%, -50%);
 }
 
+/* adjusting positioning and dimensions of specific containers that make up the UI */
 #batteryBox {
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -420px);
     width: 300px;
     height: 120px;
+    transform: translate(-50%, -420px);
 }
-
-/* adjusting specific containers */
 #nameEntryContainer {
     text-align: center;
     visibility: visible;
@@ -52,7 +82,7 @@ body {
     width: 800px;
     height: 575px;
 }
-/* adjusting specific containers */
+/* credits div is not displayed until the credits button is clicked */
 #creditsContainer {
     display: none;
     text-align: center;
@@ -61,21 +91,27 @@ body {
     width: 800px;
     height: 575px;
 }
-
+/* adventure text and dialogue choices container divs are not visible until the game starts */
 #dialogueChoicesContainer {
-    height: 175px;
-    width: 1400px;
     visibility: hidden;
-    left: 50%;
-    margin-right: -50%;
-    bottom: 50%;
+    width: 1400px;
+    height: 175px;
     transform: translate(-50%, 200px);
 }
+#adventureTextContainer {
+    visibility: hidden;
+    position: absolute;
+    padding: 40px;
+    width: 750px;
+    height: 100px;
+    transform: translate(-50%, -10px);
+}
 
+/* styling and positioning for the name plates that indicate who is speaking */
 .namePlate {
+    visibility: hidden;
     padding: 5px;
     text-align: center;
-    visibility: hidden;
     font-size: 25px;
     font-style: italic;
     text-shadow: 1px 1px 1px black;
@@ -83,50 +119,32 @@ body {
     width: 150px;
     height: 30px;
     box-shadow: none;
-    left: 50%;
-    margin-right: -50%;
-    bottom: 50%;
 }
-
+/* text color for the nameplates matches the speaker text color */
 #namePlateLeft {
     color: blue;
-    transform: translate(-400px, -35px);
+    transform: translate(-400px, -50px);
 }
-
 #namePlateRight {
     color: orange;
-    transform: translate(200px, -35px);
+    transform: translate(200px, -50px);
 }
 
-/* adventure text container */ 
-#adventureTextContainer {
-    visibility: hidden;
-    position: absolute;
-    padding: 40px;
-    height: 100px;
-    width: 750px;
-    bottom: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -10px);
-}
-
-
+/* adventure text is printed on screen using many span elements */
 span {
     font-size: 35px;
     font-weight: bolder;
     text-shadow: 1px 1px 1px black;
 }
-
+/* the hidden and revealed classes are used by the typewriter effect in RevealSpanCharacters() to reveal the characters in the sentence over time */
 span.hidden {
     opacity: 0;
 }
-
 span.revealed {
     opacity: 1;
 }
 
-/* grid of buttons for the dialogue options */
+/* grid of buttons with two columns for the dialogue options within a div inside the main dialogue choices container */
 #dialogueChoices {
     visibility: hidden;
     position: relative;
@@ -137,31 +155,7 @@ span.revealed {
     max-height: 10%;
 }
 
-/* appearance of the text entry field */
-input[type=text] {
-    height: 10%;
-    width: 70%;
-    padding: 12px 20px;
-    margin: 20px 0;
-    box-sizing: border-box;
-    border: 2px solid rgb(38, 53, 58);
-    border-radius: 4px;
-    font-weight: 700;
-    font-family: "Lucida Console", "Courier New", monospace;
-    font-size: 30px;
-    text-align: center;
-}
-
-/* unique styling for the start game button */
-#startButton {
-    height: 100px;
-    width: 300px;
-    font-family: "Lucida Console", "Courier New", monospace;
-    font-size: 30px;
-    border-radius: 5px;
-    background: linear-gradient(to bottom, rgb(6, 190, 252), white)
-}
-
+/* generic button class contains the styling for buttons of all types to appear consistent */
 .genericButton {
     font-family: "Lucida Console", "Courier New", monospace;
     font-size: 25px;
@@ -173,19 +167,20 @@ input[type=text] {
     padding: 5px 10px;
     background-color: transparent;
 }
-
+/* style change of the buttons when they are hovered over to indicate the interactivity */
 .genericButton:hover {
     border: 3px solid black;
     background-color: white;
     padding: 4px 9px;
 }
 
-/* dialogue option button styles */
+/* dialogue option button styles include the visibility of the parent div container to ensure that they get hidden properly */
 .choiceButton {
     visibility: inherit;
     position: relative;
 }
 
+/* centralButton class ensures that the element appears in the center of the parent container div by using % */
 .centralButton {
     visibility: hidden;
     position: absolute;
@@ -195,7 +190,7 @@ input[type=text] {
     transform: translate(-50%, -50%);
 }
 
-/* styling and centering for each canvas */
+/* styling and centering for each canvas with pointer events disabled to stop the canvas blocking button interactivity */
 canvas {
     visibility: visible;
     background: transparent;
@@ -205,7 +200,7 @@ canvas {
     transform: translate(-50%, -50%);   
     pointer-events: none;
 }
-
+/* only the background canvas needs the outset style border and shadow */
 #backCanvas {
     border-style: outset;
     border-width: 10px;
