@@ -1,8 +1,7 @@
 Voltaic by Joe Bevis
+28th October 2021
 =====
 Submitted for MED4141-A-S1-2021/2 module assessment.
-
-28th October 2021
 -----
 A dialogue based text adventure game. 
 
